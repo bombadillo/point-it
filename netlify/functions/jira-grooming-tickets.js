@@ -1,4 +1,5 @@
 const fetch = require('node-fetch')
+const mapIssues = require('./services/jira/map-issues')
 
 exports.handler = async function () {
   const url = 'https://arnoldclark.atlassian.net/rest/api/3/search'
@@ -18,10 +19,15 @@ exports.handler = async function () {
     body: JSON.stringify(body)
   })
 
-  const tickets = await jiraResponse.json()
+  const jiraResponsePayload = await jiraResponse.json()
+
+  const issues = mapIssues(jiraResponsePayload)
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ tickets })
+    body: JSON.stringify({ issues }),
+    headers: {
+      'Access-Control-Allow-Origin': '*' // Allow from anywhere
+    }
   }
 }

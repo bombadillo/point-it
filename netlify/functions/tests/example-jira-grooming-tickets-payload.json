@@ -1,0 +1,1441 @@
+{
+  "expand": "schema,names",
+  "startAt": 0,
+  "maxResults": 50,
+  "total": 2,
+  "issues": [
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields,customfield_10500.requestTypePractice",
+      "id": "95466",
+      "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95466",
+      "key": "ONEX-1755",
+      "fields": {
+        "customfield_11162": null,
+        "customfield_11163": null,
+        "customfield_11164": null,
+        "customfield_11044": null,
+        "customfield_10990": null,
+        "customfield_11045": null,
+        "customfield_10991": null,
+        "resolution": null,
+        "customfield_10992": null,
+        "customfield_10993": null,
+        "customfield_10873": null,
+        "customfield_10863": null,
+        "customfield_10500": null,
+        "customfield_10984": null,
+        "customfield_10864": null,
+        "customfield_10985": null,
+        "customfield_10986": null,
+        "customfield_10865": null,
+        "customfield_10987": null,
+        "customfield_10988": null,
+        "customfield_10989": null,
+        "lastViewed": "2021-11-27T16:37:21.234+0000",
+        "customfield_11150": null,
+        "customfield_11151": null,
+        "customfield_11152": null,
+        "customfield_11153": null,
+        "customfield_11154": null,
+        "customfield_11155": null,
+        "customfield_11035": null,
+        "customfield_10980": null,
+        "customfield_10981": null,
+        "customfield_11157": null,
+        "customfield_10860": null,
+        "customfield_10982": null,
+        "customfield_10861": null,
+        "customfield_10862": null,
+        "labels": ["Grooming"],
+        "customfield_10983": null,
+        "customfield_10852": null,
+        "customfield_11028": null,
+        "customfield_10973": null,
+        "customfield_11149": null,
+        "customfield_11029": null,
+        "customfield_10974": null,
+        "customfield_10853": null,
+        "customfield_10854": null,
+        "customfield_10975": null,
+        "customfield_10855": null,
+        "customfield_10976": null,
+        "aggregatetimeoriginalestimate": null,
+        "customfield_10856": null,
+        "customfield_10977": null,
+        "customfield_10857": null,
+        "customfield_10978": null,
+        "customfield_10979": null,
+        "customfield_10858": null,
+        "customfield_10859": null,
+        "issuelinks": [],
+        "assignee": null,
+        "components": [],
+        "customfield_11140": null,
+        "customfield_11141": null,
+        "customfield_11020": null,
+        "customfield_11142": null,
+        "customfield_11143": null,
+        "customfield_11144": null,
+        "customfield_11145": null,
+        "customfield_10970": null,
+        "customfield_11146": null,
+        "customfield_11025": null,
+        "customfield_11147": null,
+        "customfield_11026": null,
+        "customfield_10971": null,
+        "customfield_10850": null,
+        "customfield_10851": null,
+        "customfield_11148": null,
+        "customfield_10972": null,
+        "customfield_10962": null,
+        "customfield_11138": null,
+        "customfield_11139": null,
+        "customfield_10600": null,
+        "customfield_10963": null,
+        "customfield_11018": null,
+        "customfield_11019": null,
+        "customfield_10964": null,
+        "customfield_10965": null,
+        "customfield_10845": null,
+        "customfield_10966": null,
+        "customfield_10967": null,
+        "customfield_10846": null,
+        "customfield_10968": null,
+        "customfield_10847": null,
+        "customfield_10969": null,
+        "customfield_10848": null,
+        "customfield_10849": null,
+        "subtasks": [
+          {
+            "id": "95501",
+            "key": "ONEX-1756",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95501",
+            "fields": {
+              "summary": "Create new Azure Service Bus instance",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95502",
+            "key": "ONEX-1757",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95502",
+            "fields": {
+              "summary": "Create new kubernetes namespaces on prd for MDM",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95504",
+            "key": "ONEX-1759",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95504",
+            "fields": {
+              "summary": "Create new kubernetes namespaces on prd for OC",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95503",
+            "key": "ONEX-1758",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95503",
+            "fields": {
+              "summary": "Update MDM Bus Writer pipeline to deploy to pre-prd namespace",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95505",
+            "key": "ONEX-1760",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95505",
+            "fields": {
+              "summary": "Update MDM Bus Reader pipeline to deploy to pre-prd namespace",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95506",
+            "key": "ONEX-1761",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95506",
+            "fields": {
+              "summary": "Update OC event processor pipeline to deploy to pre-prd namespace",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95507",
+            "key": "ONEX-1762",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95507",
+            "fields": {
+              "summary": "Update OC integration message monitor pipeline to deploy to pre-prd namespace",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95508",
+            "key": "ONEX-1763",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95508",
+            "fields": {
+              "summary": "Create new OC database on prd",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95509",
+            "key": "ONEX-1764",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95509",
+            "fields": {
+              "summary": "Create new Azure KeyVault secrets for OC applications",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          },
+          {
+            "id": "95510",
+            "key": "ONEX-1765",
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95510",
+            "fields": {
+              "summary": "Create new Azure KeyVault secrets for MDM applications",
+              "status": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+                "description": "",
+                "iconUrl": "https://arnoldclark.atlassian.net/",
+                "name": "To Do",
+                "id": "10000",
+                "statusCategory": {
+                  "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+                  "id": 2,
+                  "key": "new",
+                  "colorName": "blue-gray",
+                  "name": "To Do"
+                }
+              },
+              "priority": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+                "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+                "name": "Medium",
+                "id": "3"
+              },
+              "issuetype": {
+                "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10102",
+                "id": "10102",
+                "description": "The sub-task of the issue",
+                "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10316&avatarType=issuetype",
+                "name": "Sub-task",
+                "subtask": true,
+                "avatarId": 10316,
+                "hierarchyLevel": -1
+              }
+            }
+          }
+        ],
+        "customfield_11010": null,
+        "reporter": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/user?accountId=557058%3A478adc3d-bf55-4975-9f35-9a02706fbecf",
+          "accountId": "557058:478adc3d-bf55-4975-9f35-9a02706fbecf",
+          "emailAddress": "christopher.mumford@arnoldclark.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/32"
+          },
+          "displayName": "Chris Mumford",
+          "active": true,
+          "timeZone": "Europe/London",
+          "accountType": "atlassian"
+        },
+        "customfield_11012": null,
+        "customfield_11013": null,
+        "customfield_11134": null,
+        "customfield_11135": null,
+        "customfield_11014": null,
+        "customfield_11015": null,
+        "customfield_10960": null,
+        "customfield_11136": null,
+        "customfield_11137": null,
+        "customfield_10961": null,
+        "customfield_10951": null,
+        "customfield_11006": null,
+        "customfield_11007": null,
+        "customfield_10952": null,
+        "customfield_11008": null,
+        "customfield_10953": null,
+        "customfield_10954": null,
+        "customfield_11009": null,
+        "customfield_10955": null,
+        "customfield_10956": null,
+        "customfield_10957": null,
+        "customfield_10958": null,
+        "customfield_10837": [],
+        "customfield_10838": null,
+        "customfield_10959": null,
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "customfield_10839": null,
+        "votes": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/ONEX-1755/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "issuetype": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10100",
+          "id": "10100",
+          "description": "A user story. Created by JIRA Software - do not edit or delete.",
+          "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 10315,
+          "hierarchyLevel": 0
+        },
+        "project": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/project/10437",
+          "id": "10437",
+          "key": "ONEX",
+          "name": "One X",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://arnoldclark.atlassian.net/secure/projectavatar?avatarId=10324",
+            "24x24": "https://arnoldclark.atlassian.net/secure/projectavatar?size=small&s=small&avatarId=10324",
+            "16x16": "https://arnoldclark.atlassian.net/secure/projectavatar?size=xsmall&s=xsmall&avatarId=10324",
+            "32x32": "https://arnoldclark.atlassian.net/secure/projectavatar?size=medium&s=medium&avatarId=10324"
+          }
+        },
+        "customfield_11000": null,
+        "customfield_11001": null,
+        "customfield_11002": null,
+        "customfield_11003": null,
+        "customfield_10950": null,
+        "customfield_11005": null,
+        "customfield_10941": null,
+        "customfield_10942": null,
+        "customfield_10700": null,
+        "customfield_10701": null,
+        "customfield_10943": null,
+        "customfield_10944": null,
+        "customfield_10823": null,
+        "customfield_10945": null,
+        "customfield_10946": null,
+        "resolutiondate": null,
+        "customfield_10947": null,
+        "customfield_10826": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10602",
+          "value": "MSS",
+          "id": "10602"
+        },
+        "customfield_10827": null,
+        "customfield_10948": null,
+        "customfield_10949": null,
+        "watches": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/ONEX-1755/watchers",
+          "watchCount": 1,
+          "isWatching": true
+        },
+        "customfield_10930": null,
+        "customfield_10931": null,
+        "customfield_10932": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10831",
+          "value": "Arnold Clark",
+          "id": "10831"
+        },
+        "customfield_10933": null,
+        "customfield_10934": null,
+        "customfield_10935": null,
+        "customfield_10936": null,
+        "customfield_10939": null,
+        "updated": "2021-11-27T16:44:07.325+0000",
+        "timeoriginalestimate": null,
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "MDM has been using prd customer data in the stg environment. MyOps during their testing used a customers email from this data set and almost sent an email to that customer. In the meantime MDM & OC have cleared down all prd customer data in the stg databases. This is obviously worrying and so we need to come up with a solution that allows us to test the MDM batch to OC with prd data. "
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "One solution is to create a setup in the prd environment that allows for MDM & OC to test their integration without allowing other teams access to that data in a non prd setting."
+                }
+              ]
+            },
+            {
+              "type": "mediaSingle",
+              "attrs": {
+                "layout": "align-start"
+              },
+              "content": [
+                {
+                  "type": "media",
+                  "attrs": {
+                    "id": "f749fe46-ada0-4a44-baa2-f457dc53367d",
+                    "type": "file",
+                    "collection": "",
+                    "width": 6870,
+                    "height": 2940
+                  }
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": []
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "What’s required for the new “pre-prd” setup?",
+                  "marks": [
+                    {
+                      "type": "strong"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "New Azure Service Bus instance"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "New kubernetes namespace (e.g. one-customer-pre-prd, mdm-pre-prd)"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "bulletList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "This namespace will only exist on prd"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "MDM bus reader & writer instances that listen to the new Azure Service Bus"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "OC event processors that listen to the new Azure Service Bus"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "Integration Message monitor to provide message responses to MDM"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "New OC database that the new EP pods will use"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "bulletList",
+                      "content": [
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "Need users for deplyoment, app usage, mdm redgate"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "Is this going into the pool?"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "listItem",
+                          "content": [
+                            {
+                              "type": "paragraph",
+                              "content": [
+                                {
+                                  "type": "text",
+                                  "text": "Do we need SolarWinds?"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "New Azure KeyVault secrets for the MDM/OC pods"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "New devops deploy step"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10005": null,
+        "customfield_10920": null,
+        "customfield_10921": null,
+        "customfield_10800": null,
+        "customfield_10801": null,
+        "customfield_10922": null,
+        "customfield_10924": null,
+        "customfield_10925": null,
+        "customfield_10926": null,
+        "customfield_10927": null,
+        "customfield_10928": null,
+        "customfield_10929": null,
+        "summary": "Create new setup on prd to handle \"pre-prd\" testing of MDM batch",
+        "customfield_10000": "{}",
+        "customfield_10001": null,
+        "customfield_10115": [
+          {
+            "id": 761,
+            "name": "Grooming",
+            "state": "future",
+            "boardId": 204,
+            "goal": "Tickets that need grooming"
+          }
+        ],
+        "customfield_10116": "2|hzs4mv:1zzzvxzi",
+        "customfield_10117": 3,
+        "environment": null,
+        "customfield_10911": null,
+        "duedate": null,
+        "customfield_10913": null,
+        "customfield_10914": null,
+        "customfield_10915": null,
+        "customfield_10919": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10789",
+          "value": "Roadmap",
+          "id": "10789"
+        },
+        "statuscategorychangedate": "2021-11-23T09:24:41.518+0000",
+        "fixVersions": [],
+        "customfield_10113": null,
+        "customfield_10114": null,
+        "customfield_10901": null,
+        "customfield_10902": null,
+        "customfield_10903": null,
+        "customfield_10904": null,
+        "customfield_10906": null,
+        "customfield_10907": null,
+        "customfield_10909": null,
+        "priority": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "customfield_10100": null,
+        "customfield_10101": null,
+        "customfield_10102": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "PLUGIN_LICENSE_ERROR",
+            "message": "The Parent Link is only available to Jira Premium users."
+          }
+        },
+        "timeestimate": null,
+        "versions": [],
+        "status": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+          "description": "",
+          "iconUrl": "https://arnoldclark.atlassian.net/",
+          "name": "To Do",
+          "id": "10000",
+          "statusCategory": {
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "aggregatetimeestimate": null,
+        "creator": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/user?accountId=557058%3A478adc3d-bf55-4975-9f35-9a02706fbecf",
+          "accountId": "557058:478adc3d-bf55-4975-9f35-9a02706fbecf",
+          "emailAddress": "christopher.mumford@arnoldclark.com",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/557058:478adc3d-bf55-4975-9f35-9a02706fbecf/7e384eea-34eb-43f7-b081-f9fdd4194582/32"
+          },
+          "displayName": "Chris Mumford",
+          "active": true,
+          "timeZone": "Europe/London",
+          "accountType": "atlassian"
+        },
+        "customfield_11093": null,
+        "customfield_11096": null,
+        "customfield_11097": null,
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "timespent": null,
+        "customfield_11084": null,
+        "aggregatetimespent": null,
+        "customfield_10302": null,
+        "workratio": -1,
+        "customfield_11194": null,
+        "created": "2021-11-23T09:24:41.443+0000",
+        "customfield_10300": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10100",
+          "value": "Planned",
+          "id": "10100"
+        },
+        "customfield_10301": null,
+        "customfield_10896": null,
+        "customfield_10897": null,
+        "customfield_11180": null,
+        "customfield_11181": null,
+        "customfield_11183": null,
+        "customfield_10890": null,
+        "customfield_10891": null,
+        "customfield_11189": [],
+        "customfield_10895": null,
+        "customfield_10885": null,
+        "customfield_10886": null,
+        "customfield_10887": null,
+        "security": null,
+        "customfield_11171": null,
+        "customfield_11174": null,
+        "customfield_11175": null,
+        "customfield_11176": null,
+        "customfield_11056": null,
+        "customfield_11177": null,
+        "customfield_11178": null,
+        "customfield_11057": null,
+        "customfield_10882": null,
+        "customfield_11058": null,
+        "customfield_10884": null,
+        "customfield_10400": null,
+        "customfield_10995": null,
+        "customfield_10996": null,
+        "customfield_10875": null,
+        "customfield_10876": null,
+        "customfield_10998": null
+      }
+    },
+    {
+      "expand": "operations,versionedRepresentations,editmeta,changelog,renderedFields,customfield_10500.requestTypePractice",
+      "id": "95081",
+      "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/95081",
+      "key": "ONEX-1732",
+      "fields": {
+        "customfield_11162": null,
+        "customfield_11163": null,
+        "customfield_11164": null,
+        "customfield_11044": null,
+        "customfield_10990": null,
+        "customfield_11045": null,
+        "customfield_10991": null,
+        "customfield_10992": null,
+        "resolution": null,
+        "customfield_10993": null,
+        "customfield_10873": null,
+        "customfield_10863": null,
+        "customfield_10500": null,
+        "customfield_10984": null,
+        "customfield_10985": null,
+        "customfield_10864": null,
+        "customfield_10986": null,
+        "customfield_10865": null,
+        "customfield_10987": null,
+        "customfield_10988": null,
+        "customfield_10989": null,
+        "lastViewed": "2021-11-27T16:55:43.182+0000",
+        "customfield_11150": null,
+        "customfield_11151": null,
+        "customfield_11152": null,
+        "customfield_11153": null,
+        "customfield_11154": null,
+        "customfield_11155": null,
+        "customfield_10980": null,
+        "customfield_11035": null,
+        "customfield_10860": null,
+        "customfield_11157": null,
+        "customfield_10981": null,
+        "customfield_10982": null,
+        "customfield_10861": null,
+        "customfield_10983": null,
+        "customfield_10862": null,
+        "labels": ["Grooming", "onex-dependabot"],
+        "customfield_10852": null,
+        "customfield_11028": null,
+        "customfield_10973": null,
+        "customfield_11149": null,
+        "customfield_10974": null,
+        "customfield_10853": null,
+        "customfield_11029": null,
+        "customfield_10854": null,
+        "customfield_10975": null,
+        "customfield_10976": null,
+        "customfield_10855": null,
+        "customfield_10977": null,
+        "aggregatetimeoriginalestimate": null,
+        "customfield_10856": null,
+        "customfield_10857": null,
+        "customfield_10978": null,
+        "customfield_10858": null,
+        "customfield_10979": null,
+        "customfield_10859": null,
+        "issuelinks": [],
+        "assignee": null,
+        "components": [],
+        "customfield_11140": null,
+        "customfield_11141": null,
+        "customfield_11020": null,
+        "customfield_11142": null,
+        "customfield_11143": null,
+        "customfield_11144": null,
+        "customfield_11145": null,
+        "customfield_11025": null,
+        "customfield_11146": null,
+        "customfield_10970": null,
+        "customfield_10971": null,
+        "customfield_11026": null,
+        "customfield_11147": null,
+        "customfield_10850": null,
+        "customfield_11148": null,
+        "customfield_10851": null,
+        "customfield_10972": null,
+        "customfield_11138": null,
+        "customfield_10962": null,
+        "customfield_11139": null,
+        "customfield_11018": null,
+        "customfield_10963": null,
+        "customfield_10600": null,
+        "customfield_10964": null,
+        "customfield_11019": null,
+        "customfield_10965": null,
+        "customfield_10845": null,
+        "customfield_10966": null,
+        "customfield_10967": null,
+        "customfield_10846": null,
+        "customfield_10968": null,
+        "customfield_10847": null,
+        "customfield_10969": null,
+        "customfield_10848": null,
+        "customfield_10849": null,
+        "subtasks": [],
+        "customfield_11010": null,
+        "reporter": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/user?accountId=5af1aef55eb6eb57e07f961e",
+          "accountId": "5af1aef55eb6eb57e07f961e",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/32"
+          },
+          "displayName": "Scott Miller",
+          "active": true,
+          "timeZone": "Etc/GMT",
+          "accountType": "atlassian"
+        },
+        "customfield_11012": null,
+        "customfield_11134": null,
+        "customfield_11013": null,
+        "customfield_11014": null,
+        "customfield_11135": null,
+        "customfield_11136": null,
+        "customfield_11015": null,
+        "customfield_10960": null,
+        "customfield_10961": null,
+        "customfield_11137": null,
+        "customfield_11006": null,
+        "customfield_10951": null,
+        "customfield_11007": null,
+        "customfield_10952": null,
+        "customfield_10953": null,
+        "customfield_11008": null,
+        "customfield_10954": null,
+        "customfield_11009": null,
+        "customfield_10955": null,
+        "customfield_10956": null,
+        "customfield_10957": null,
+        "customfield_10837": [],
+        "customfield_10958": null,
+        "customfield_10959": null,
+        "customfield_10838": null,
+        "customfield_10839": null,
+        "progress": {
+          "progress": 0,
+          "total": 0
+        },
+        "votes": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/ONEX-1732/votes",
+          "votes": 0,
+          "hasVoted": false
+        },
+        "issuetype": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issuetype/10100",
+          "id": "10100",
+          "description": "A user story. Created by JIRA Software - do not edit or delete.",
+          "iconUrl": "https://arnoldclark.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype",
+          "name": "Story",
+          "subtask": false,
+          "avatarId": 10315,
+          "hierarchyLevel": 0
+        },
+        "project": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/project/10437",
+          "id": "10437",
+          "key": "ONEX",
+          "name": "One X",
+          "projectTypeKey": "software",
+          "simplified": false,
+          "avatarUrls": {
+            "48x48": "https://arnoldclark.atlassian.net/secure/projectavatar?avatarId=10324",
+            "24x24": "https://arnoldclark.atlassian.net/secure/projectavatar?size=small&s=small&avatarId=10324",
+            "16x16": "https://arnoldclark.atlassian.net/secure/projectavatar?size=xsmall&s=xsmall&avatarId=10324",
+            "32x32": "https://arnoldclark.atlassian.net/secure/projectavatar?size=medium&s=medium&avatarId=10324"
+          }
+        },
+        "customfield_11000": null,
+        "customfield_11001": null,
+        "customfield_11002": null,
+        "customfield_11003": null,
+        "customfield_10950": null,
+        "customfield_11005": null,
+        "customfield_10941": null,
+        "customfield_10942": null,
+        "customfield_10700": null,
+        "customfield_10701": null,
+        "customfield_10943": null,
+        "customfield_10823": null,
+        "customfield_10944": null,
+        "customfield_10945": null,
+        "customfield_10946": null,
+        "resolutiondate": null,
+        "customfield_10826": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10602",
+          "value": "MSS",
+          "id": "10602"
+        },
+        "customfield_10947": null,
+        "customfield_10948": null,
+        "customfield_10827": null,
+        "customfield_10949": null,
+        "watches": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/issue/ONEX-1732/watchers",
+          "watchCount": 1,
+          "isWatching": false
+        },
+        "customfield_10930": null,
+        "customfield_10931": null,
+        "customfield_10932": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10831",
+          "value": "Arnold Clark",
+          "id": "10831"
+        },
+        "customfield_10933": null,
+        "customfield_10934": null,
+        "customfield_10935": null,
+        "customfield_10936": null,
+        "customfield_10939": null,
+        "updated": "2021-11-27T16:55:48.015+0000",
+        "timeoriginalestimate": null,
+        "description": {
+          "version": 1,
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "These are: "
+                }
+              ]
+            },
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "merge-deep"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "immer"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "See "
+                },
+                {
+                  "type": "text",
+                  "text": "https://github.com/arnoldclark/one-vehicle-ui/security/dependabot?q=is%3Aopen+sort%3Aseverity",
+                  "marks": [
+                    {
+                      "type": "link",
+                      "attrs": {
+                        "href": "https://github.com/arnoldclark/one-vehicle-ui/security/dependabot?q=is%3Aopen+sort%3Aseverity"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": ". "
+                }
+              ]
+            }
+          ]
+        },
+        "customfield_10005": "ONEX-1364",
+        "customfield_10920": null,
+        "customfield_10800": null,
+        "customfield_10921": null,
+        "customfield_10922": null,
+        "customfield_10801": null,
+        "customfield_10924": null,
+        "customfield_10925": null,
+        "customfield_10926": null,
+        "customfield_10927": null,
+        "customfield_10928": null,
+        "customfield_10929": null,
+        "summary": "OV UI: Fix 2 critical security alerts",
+        "customfield_10000": "{}",
+        "customfield_10001": null,
+        "customfield_10115": [
+          {
+            "id": 761,
+            "name": "Grooming",
+            "state": "future",
+            "boardId": 204,
+            "goal": "Tickets that need grooming"
+          }
+        ],
+        "customfield_10116": "2|hzs4mv:1zzzvzr",
+        "customfield_10117": 1,
+        "environment": null,
+        "customfield_10911": null,
+        "duedate": null,
+        "customfield_10913": null,
+        "customfield_10914": null,
+        "customfield_10915": null,
+        "customfield_10919": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10789",
+          "value": "Roadmap",
+          "id": "10789"
+        },
+        "statuscategorychangedate": "2021-11-16T16:22:11.809+0000",
+        "fixVersions": [],
+        "customfield_10113": null,
+        "customfield_10114": null,
+        "customfield_10901": null,
+        "customfield_10902": null,
+        "customfield_10903": null,
+        "customfield_10904": null,
+        "customfield_10906": null,
+        "customfield_10907": null,
+        "customfield_10909": null,
+        "priority": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/priority/3",
+          "iconUrl": "https://arnoldclark.atlassian.net/images/icons/priorities/medium.svg",
+          "name": "Medium",
+          "id": "3"
+        },
+        "customfield_10100": null,
+        "customfield_10101": null,
+        "customfield_10102": {
+          "hasEpicLinkFieldDependency": false,
+          "showField": false,
+          "nonEditableReason": {
+            "reason": "PLUGIN_LICENSE_ERROR",
+            "message": "The Parent Link is only available to Jira Premium users."
+          }
+        },
+        "timeestimate": null,
+        "versions": [],
+        "status": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/status/10000",
+          "description": "",
+          "iconUrl": "https://arnoldclark.atlassian.net/",
+          "name": "To Do",
+          "id": "10000",
+          "statusCategory": {
+            "self": "https://arnoldclark.atlassian.net/rest/api/3/statuscategory/2",
+            "id": 2,
+            "key": "new",
+            "colorName": "blue-gray",
+            "name": "To Do"
+          }
+        },
+        "aggregatetimeestimate": null,
+        "creator": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/user?accountId=5af1aef55eb6eb57e07f961e",
+          "accountId": "5af1aef55eb6eb57e07f961e",
+          "avatarUrls": {
+            "48x48": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/48",
+            "24x24": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/24",
+            "16x16": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/16",
+            "32x32": "https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5af1aef55eb6eb57e07f961e/6096d154-5fa0-4a9f-893d-01e2cd26ce1c/32"
+          },
+          "displayName": "Scott Miller",
+          "active": true,
+          "timeZone": "Etc/GMT",
+          "accountType": "atlassian"
+        },
+        "customfield_11093": null,
+        "customfield_11096": null,
+        "customfield_11097": null,
+        "aggregateprogress": {
+          "progress": 0,
+          "total": 0
+        },
+        "timespent": null,
+        "customfield_11084": null,
+        "aggregatetimespent": null,
+        "customfield_10302": null,
+        "workratio": -1,
+        "created": "2021-11-16T16:22:11.404+0000",
+        "customfield_11194": null,
+        "customfield_10300": {
+          "self": "https://arnoldclark.atlassian.net/rest/api/3/customFieldOption/10100",
+          "value": "Planned",
+          "id": "10100"
+        },
+        "customfield_10301": null,
+        "customfield_10896": null,
+        "customfield_10897": null,
+        "customfield_11180": null,
+        "customfield_11181": null,
+        "customfield_11183": null,
+        "customfield_10890": null,
+        "customfield_10891": null,
+        "customfield_11189": [],
+        "customfield_10895": null,
+        "customfield_10885": null,
+        "customfield_10886": null,
+        "customfield_10887": null,
+        "security": null,
+        "customfield_11171": null,
+        "customfield_11174": null,
+        "customfield_11175": null,
+        "customfield_11176": null,
+        "customfield_11056": null,
+        "customfield_11177": null,
+        "customfield_11057": null,
+        "customfield_11178": null,
+        "customfield_10882": null,
+        "customfield_11058": null,
+        "customfield_10884": null,
+        "customfield_10400": null,
+        "customfield_10995": null,
+        "customfield_10996": null,
+        "customfield_10875": null,
+        "customfield_10876": null,
+        "customfield_10998": null
+      }
+    }
+  ]
+}

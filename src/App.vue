@@ -21,7 +21,7 @@
 
     <GroomingTicketList :onTicketSelected="onTicketSelected" />
 
-    <GroomingTicket :ticket="selectedTicket" />
+    <GroomingTicket :ticket="selectedTicket" :pointSubmitted="pointSubmitted" />
   </div>
 </template>
 
@@ -42,6 +42,9 @@ export default {
     onTicketSelected(ticket) {
       console.log('ticket received', ticket)
       this.selectedTicket = ticket
+    },
+    pointSubmitted(point) {
+      console.log('point received', point)
     }
   }
 }

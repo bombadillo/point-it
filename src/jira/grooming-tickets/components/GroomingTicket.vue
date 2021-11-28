@@ -24,10 +24,28 @@
         <p>
           {{ ticket.description }}
         </p>
+      </div>
 
-        <div class="pure-g">
-          <div class="pure-u-1">
-            <button class="button-success pure-button">Point it!</button>
+      <div class="email-content-footer pure-g">
+        <div class="pure-u-1">
+          <div class="pure-g form">
+            <div class="pure-u-1">
+              <label class="points-label" for="points">Points</label>
+              <input
+                v-model="points"
+                name="points"
+                type="text"
+                class="points"
+              />
+            </div>
+          </div>
+
+          <div class="pure-g">
+            <div class="pure-u-1">
+              <button @click="pointIt" class="button-success pure-button">
+                Point it!
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -37,6 +55,31 @@
 
 <script>
 export default {
-  props: ['ticket']
+  props: ['ticket', 'pointSubmitted'],
+  data() {
+    return {
+      points: 0
+    }
+  },
+  methods: {
+    pointIt() {
+      console.log(this.points)
+      this.pointSubmitted(this.points)
+    }
+  }
 }
 </script>
+
+<style scoped>
+.form {
+  margin-bottom: 20px;
+}
+.points {
+  width: 30px;
+  margin-left: 10px;
+}
+
+.points-label {
+  font-weight: bold;
+}
+</style>

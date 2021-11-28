@@ -30,16 +30,13 @@ export default {
   methods: {
     async getGroomingTickets() {
       const groomingTickets = await getGroomingTickets()
-      console.log(groomingTickets)
       this.groomingTickets = groomingTickets
     },
     ticketSelected(ticket) {
-      console.log(ticket)
       this.onTicketSelected(ticket)
     }
   },
   mounted() {
-    console.log(this.onTicketSelected)
     this.getGroomingTickets()
   }
 }

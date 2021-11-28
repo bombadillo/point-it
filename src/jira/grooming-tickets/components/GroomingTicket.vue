@@ -63,8 +63,10 @@ export default {
   },
   methods: {
     pointIt() {
-      console.log(this.points)
-      this.pointSubmitted(this.points)
+      if (this.points) {
+        console.log(this.points)
+        this.pointSubmitted(this.points)
+      }
     }
   }
 }

@@ -21,7 +21,13 @@
 
     <GroomingTicketList :onTicketSelected="onTicketSelected" />
 
-    <GroomingTicket :ticket="selectedTicket" :pointSubmitted="pointSubmitted" />
+    <GroomingTicket
+      v-if="!groomingSuccessful"
+      :ticket="selectedTicket"
+      :pointSubmitted="pointSubmitted"
+    />
+
+    <GroomingSuccess v-if="groomingSuccessful" />
   </div>
 </template>
 
@@ -29,22 +35,26 @@
 import '@/assets/styles/app-styles.css'
 import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
 import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
+import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 
 export default {
   name: 'App',
-  components: { GroomingTicketList, GroomingTicket },
+  components: { GroomingTicketList, GroomingTicket, GroomingSuccess },
   data() {
     return {
-      selectedTicket: undefined
+      selectedTicket: undefined,
+      groomingSuccessful: false
     }
   },
   methods: {
     onTicketSelected(ticket) {
       console.log('ticket received', ticket)
       this.selectedTicket = ticket
+      this.groomingSuccessful = false
     },
     pointSubmitted(point) {
       console.log('point received', point)
+      this.groomingSuccessful = true
     }
   }
 }

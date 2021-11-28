@@ -1,5 +1,6 @@
 <template>
   <div id="list" class="pure-u-1">
+    <Skeleton v-if="loading" :totalToDisplay="4" />
     <div
       v-for="ticket in groomingTickets.issues"
       :key="ticket.id"
@@ -21,16 +22,19 @@
 
 <script>
 import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
+import Skeleton from '@/skeleton/components/Skeleton'
 
 export default {
   props: ['onTicketSelected'],
+  components: { Skeleton },
   data() {
-    return { groomingTickets: [] }
+    return { loading: true, groomingTickets: [] }
   },
   methods: {
     async getGroomingTickets() {
       const groomingTickets = await getGroomingTickets()
       this.groomingTickets = groomingTickets
+      this.loading = false
     },
     ticketSelected(ticket) {
       this.onTicketSelected(ticket)

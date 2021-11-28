@@ -45,6 +45,7 @@ import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicke
 import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
+import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
 
 export default {
   name: 'App',
@@ -77,6 +78,9 @@ export default {
     logout() {
       this.user = undefined
     }
+  },
+  setup() {
+    initSkeleton()
   }
 }
 </script>

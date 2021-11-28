@@ -15,7 +15,7 @@
         <div class="pure-u-1">
           <h1 class="email-content-title">{{ ticket.summary }}</h1>
           <p class="email-content-subtitle">
-            Reported by <a>{{ ticket.reportedBy }}a</a>
+            Reported by <a>{{ ticket.reportedBy }}</a>
           </p>
         </div>
       </div>
@@ -30,13 +30,18 @@
         <div class="pure-u-1">
           <div class="pure-g form">
             <div class="pure-u-1">
-              <label class="points-label" for="points">Points</label>
-              <input
-                v-model="points"
-                name="points"
-                type="text"
-                class="points"
-              />
+              <label class="points-label">Points</label>
+              <div v-for="option in pointOptions" :key="option" class="points">
+                <label :for="'points-' + option" class="pure-radio">
+                  <input
+                    type="radio"
+                    :id="'points-' + option"
+                    v-model="points"
+                    :value="option"
+                  />
+                  {{ option }}
+                </label>
+              </div>
             </div>
           </div>
 
@@ -58,7 +63,8 @@ export default {
   props: ['ticket', 'pointSubmitted'],
   data() {
     return {
-      points: 0
+      points: 0,
+      pointOptions: [1, 2, 3, 5, 8, 13, 20, 40, 100]
     }
   },
   methods: {
@@ -76,12 +82,14 @@ export default {
 .form {
   margin-bottom: 20px;
 }
-.points {
-  width: 30px;
-  margin-left: 10px;
-}
 
 .points-label {
   font-weight: bold;
+  margin-right: 10px;
+}
+
+.points {
+  display: inline-block;
+  margin-left: 10px;
 }
 </style>

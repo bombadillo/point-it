@@ -4,6 +4,7 @@
       v-for="ticket in groomingTickets.issues"
       :key="ticket.id"
       class="email-item email-item-selected pure-g"
+      @click="ticketSelected(ticket)"
     >
       <div class="pure-u">🎫</div>
 
@@ -22,6 +23,7 @@
 import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
 
 export default {
+  props: ['onTicketSelected'],
   data() {
     return { groomingTickets: [] }
   },
@@ -30,10 +32,26 @@ export default {
       const groomingTickets = await getGroomingTickets()
       console.log(groomingTickets)
       this.groomingTickets = groomingTickets
+    },
+    ticketSelected(ticket) {
+      console.log(ticket)
+      this.onTicketSelected(ticket)
     }
   },
   mounted() {
+    console.log(this.onTicketSelected)
     this.getGroomingTickets()
   }
 }
 </script>
+
+<style>
+.email-item {
+  transition: background 0.5s ease;
+  background: rgba(238, 238, 238, 0.1);
+}
+.email-item:hover {
+  cursor: pointer;
+  background: rgba(238, 238, 238, 1);
+}
+</style>

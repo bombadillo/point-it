@@ -1,5 +1,7 @@
 <template>
-  <div id="layout" class="content pure-g">
+  <div v-if="!user"><UserLogin :userLoggedIn="userLoggedIn" /></div>
+
+  <div v-if="user" id="layout" class="content pure-g">
     <div id="nav" class="pure-u">
       <a href="#" id="menuLink" class="nav-menu-button">Menu</a>
 
@@ -9,10 +11,16 @@
         <div class="pure-menu">
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
+              <p class="pure-menu-user">🐱‍💻 {{ user.name }}</p>
+            </li>
+            <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Join new session</a>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Logout</a>
+              <a href="#" class="pure-menu-link">Create new session</a>
+            </li>
+            <li class="pure-menu-item">
+              <a @click="logout" href="#" class="pure-menu-link">Logout</a>
             </li>
           </ul>
         </div>
@@ -36,12 +44,19 @@ import '@/assets/styles/app-styles.css'
 import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
 import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
+import UserLogin from '@/user/login/components/UserLogin'
 
 export default {
   name: 'App',
-  components: { GroomingTicketList, GroomingTicket, GroomingSuccess },
+  components: {
+    GroomingTicketList,
+    GroomingTicket,
+    GroomingSuccess,
+    UserLogin
+  },
   data() {
     return {
+      user: undefined,
       selectedTicket: undefined,
       groomingSuccessful: false
     }
@@ -55,6 +70,12 @@ export default {
     pointSubmitted(point) {
       console.log('point received', point)
       this.groomingSuccessful = true
+    },
+    userLoggedIn(user) {
+      this.user = user
+    },
+    logout() {
+      this.user = undefined
     }
   }
 }

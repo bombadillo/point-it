@@ -168,6 +168,10 @@ a {
   border-bottom: 1px solid #ddd;
 }
 
+.email-content-footer {
+  border-top: 1px solid #ddd;
+}
+
 .email-content-title {
   margin: 0.5em 0 0;
 }

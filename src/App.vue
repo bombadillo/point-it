@@ -6,7 +6,7 @@
       <a href="#" id="menuLink" class="nav-menu-button">Menu</a>
 
       <div class="nav-inner">
-        <h1 class="logo">👉 it!</h1>
+        <h1 class="logo"><span>👉</span> it!</h1>
 
         <div class="pure-menu">
           <ul class="pure-menu-list">
@@ -40,7 +40,10 @@
       <GroomingSuccess v-if="groomingSuccessful" />
     </div>
     <div v-else>
-      <CreateSession v-if="showCreateSession" />
+      <CreateSession
+        v-if="showCreateSession"
+        :onSessionCreated="onSessionCreated"
+      />
       <NoSession v-else />
     </div>
   </div>
@@ -58,6 +61,7 @@ import getLoggedInUser from '@/user/services/get-logged-in-user'
 import logUserOut from '@/user/services/log-user-out'
 import NoSession from '@/session/components/NoSession'
 import CreateSession from '@/session/components/CreateSession'
+import getLocalSession from '@/session/services/get-local-session'
 
 export default {
   name: 'App',
@@ -97,9 +101,16 @@ export default {
     logout() {
       logUserOut()
       this.user = undefined
+      this.session = undefined
     },
     onCreateSessionClicked() {
       this.showCreateSession = true
+    },
+    onSessionCreated(session) {
+      this.session = session
+    },
+    tryGetLocalSession() {
+      this.session = getLocalSession()
     }
   },
   setup() {
@@ -107,6 +118,7 @@ export default {
   },
   mounted() {
     this.tryGetLoggedInUser()
+    this.tryGetLocalSession()
   }
 }
 </script>

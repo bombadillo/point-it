@@ -13,11 +13,17 @@ exports.handler = async function (event) {
 
     const eventBody = JSON.parse(event.body)
 
-    const session = await addSession(eventBody.sessionName)
+    if (!eventBody.name || !eventBody.user) {
+      return {
+        statusCode: 400
+      }
+    }
+
+    const session = await addSession(eventBody.name, eventBody.user)
 
     return {
       statusCode: 200,
-      body: JSON.stringify(session)
+      body: JSON.stringify(session.data)
     }
   } catch (e) {
     console.log(e)
@@ -29,10 +35,10 @@ exports.handler = async function (event) {
   }
 }
 
-async function addSession(sessionName) {
-  await client.query(
+async function addSession(sessionName, user) {
+  return await client.query(
     q.Create(q.Collection('session'), {
-      data: { name: sessionName }
+      data: { name: sessionName, user }
     })
   )
 }

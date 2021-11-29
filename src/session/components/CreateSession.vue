@@ -23,18 +23,19 @@
 
 <script>
 import createSession from '@/session/services/create-session'
+import getLocalUser from '@/user/services/get-logged-in-user'
 
 export default {
+  props: ['onSessionCreated'],
   data() {
     return {
       sessionName: ''
     }
   },
   methods: {
-    onFormSubmit() {
-      console.log(this.sessionName)
-      const session = createSession(this.sessionName)
-      console.log(session)
+    async onFormSubmit() {
+      const session = await createSession(this.sessionName, getLocalUser())
+      this.onSessionCreated(session)
     }
   }
 }

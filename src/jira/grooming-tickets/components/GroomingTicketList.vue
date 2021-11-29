@@ -1,6 +1,7 @@
 <template>
   <div id="list" class="pure-u-1">
     <Skeleton v-if="loading" :totalToDisplay="4" />
+    <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div
       v-for="ticket in groomingTickets.issues"
       :key="ticket.id"
@@ -21,29 +22,32 @@
 </template>
 
 <script>
-import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
-import Skeleton from '@/skeleton/components/Skeleton'
+import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets';
+import Skeleton from '@/skeleton/components/Skeleton';
 
 export default {
   props: ['onTicketSelected'],
   components: { Skeleton },
   data() {
-    return { loading: true, groomingTickets: [] }
+    return { loading: true, groomingTickets: [] };
   },
   methods: {
     async getGroomingTickets() {
-      const groomingTickets = await getGroomingTickets()
-      this.groomingTickets = groomingTickets
-      this.loading = false
+      const groomingTickets = await getGroomingTickets();
+      this.groomingTickets = groomingTickets || [];
+      this.loading = false;
     },
     ticketSelected(ticket) {
-      this.onTicketSelected(ticket)
+      this.onTicketSelected(ticket);
+    },
+    showNoTicketsMessage() {
+      return this.groomingTickets.length === 0 && !this.loading;
     }
   },
   mounted() {
-    this.getGroomingTickets()
+    this.getGroomingTickets();
   }
-}
+};
 </script>
 
 <style>
@@ -54,5 +58,9 @@ export default {
 .email-item:hover {
   cursor: pointer;
   background: rgba(238, 238, 238, 1);
+}
+
+h3 {
+  padding: 10px;
 }
 </style>

@@ -19,15 +19,25 @@ exports.handler = async function () {
     body: JSON.stringify(body)
   })
 
-  const jiraResponsePayload = await jiraResponse.json()
+  if (jiraResponse.ok) {
+    const jiraResponsePayload = await jiraResponse.json()
 
-  const issues = mapIssues(jiraResponsePayload)
+    const issues = mapIssues(jiraResponsePayload)
+  
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ issues }),
+      headers: {
+        'Access-Control-Allow-Origin': '*' // Allow from anywhere
+      }
+    }
+  }
 
   return {
-    statusCode: 200,
-    body: JSON.stringify({ issues }),
+    statusCode: jiraResponse.status,
     headers: {
       'Access-Control-Allow-Origin': '*' // Allow from anywhere
     }
   }
+
 }

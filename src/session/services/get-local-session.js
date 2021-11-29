@@ -1,3 +1,3 @@
 export default () => {
-  return localStorage.getItem('session')
+  return JSON.parse(localStorage.getItem('session'))
 }

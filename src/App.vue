@@ -26,6 +26,14 @@
             <li class="pure-menu-item">
               <a @click="logout" href="#" class="pure-menu-link">👋 Logout</a>
             </li>
+            <li class="pure-menu-item">
+              <p class="pure-menu-user"><span>👥</span> Users</p>
+              <ul>
+                <li v-for="user in session.users" :key="user.name" class="user">
+                  {{ user.name }}
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
       </div>
@@ -120,6 +128,7 @@ export default {
     },
     tryGetLocalSession() {
       this.session = getLocalSession()
+      console.log(this.session)
     },
     onJoinSessionClicked() {
       this.showJoinSession = true
@@ -145,5 +154,9 @@ export default {
   color: white;
   padding: 20px;
   margin-top: 0;
+}
+
+.user {
+  color: white;
 }
 </style>

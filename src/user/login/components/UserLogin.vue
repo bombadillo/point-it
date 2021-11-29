@@ -30,7 +30,8 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('test')
+      const user = { name: this.username }
+      localStorage.setItem('user', JSON.stringify(user))
       this.userLoggedIn({ name: this.username })
     }
   }

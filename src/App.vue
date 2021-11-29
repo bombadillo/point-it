@@ -40,12 +40,15 @@
 </template>
 
 <script>
+import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
+
 import '@/assets/styles/app-styles.css'
 import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
 import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
-import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
+import getLoggedInUser from '@/user/services/get-logged-in-user'
+import logUserOut from '@/user/services/log-user-out'
 
 export default {
   name: 'App',
@@ -72,15 +75,22 @@ export default {
       console.log('point received', point)
       this.groomingSuccessful = true
     },
+    tryGetLoggedInUser() {
+      this.user = getLoggedInUser()
+    },
     userLoggedIn(user) {
       this.user = user
     },
     logout() {
+      logUserOut()
       this.user = undefined
     }
   },
   setup() {
     initSkeleton()
+  },
+  mounted() {
+    this.tryGetLoggedInUser()
   }
 }
 </script>

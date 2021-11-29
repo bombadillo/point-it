@@ -11,31 +11,38 @@
         <div class="pure-menu">
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
-              <p class="pure-menu-user">🐱‍💻 {{ user.name }}</p>
+              <p class="pure-menu-user"><span>🐱‍💻</span> {{ user.name }}</p>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Join new session</a>
+              <a href="#" class="pure-menu-link">🤝 Join new session</a>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Create new session</a>
+              <a @click="onCreateSessionClicked" href="#" class="pure-menu-link"
+                >🆕 Create new session</a
+              >
             </li>
             <li class="pure-menu-item">
-              <a @click="logout" href="#" class="pure-menu-link">Logout</a>
+              <a @click="logout" href="#" class="pure-menu-link">👋 Logout</a>
             </li>
           </ul>
         </div>
       </div>
     </div>
+    <div v-if="session">
+      <GroomingTicketList :onTicketSelected="onTicketSelected" />
 
-    <GroomingTicketList :onTicketSelected="onTicketSelected" />
+      <GroomingTicket
+        v-if="!groomingSuccessful"
+        :ticket="selectedTicket"
+        :pointSubmitted="pointSubmitted"
+      />
 
-    <GroomingTicket
-      v-if="!groomingSuccessful"
-      :ticket="selectedTicket"
-      :pointSubmitted="pointSubmitted"
-    />
-
-    <GroomingSuccess v-if="groomingSuccessful" />
+      <GroomingSuccess v-if="groomingSuccessful" />
+    </div>
+    <div v-else>
+      <CreateSession v-if="showCreateSession" />
+      <NoSession v-else />
+    </div>
   </div>
 </template>
 
@@ -49,6 +56,8 @@ import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
 import getLoggedInUser from '@/user/services/get-logged-in-user'
 import logUserOut from '@/user/services/log-user-out'
+import NoSession from '@/session/components/NoSession'
+import CreateSession from '@/session/components/CreateSession'
 
 export default {
   name: 'App',
@@ -56,13 +65,17 @@ export default {
     GroomingTicketList,
     GroomingTicket,
     GroomingSuccess,
-    UserLogin
+    UserLogin,
+    NoSession,
+    CreateSession
   },
   data() {
     return {
       user: undefined,
+      session: undefined,
       selectedTicket: undefined,
-      groomingSuccessful: false
+      groomingSuccessful: false,
+      showCreateSession: false
     }
   },
   methods: {
@@ -84,6 +97,9 @@ export default {
     logout() {
       logUserOut()
       this.user = undefined
+    },
+    onCreateSessionClicked() {
+      this.showCreateSession = true
     }
   },
   setup() {
@@ -98,5 +114,9 @@ export default {
 <style scoped>
 .logo {
   color: white;
+  background: rgb(51, 66, 109);
+  color: white;
+  padding: 20px;
+  margin-top: 0;
 }
 </style>

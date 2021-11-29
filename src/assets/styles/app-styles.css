@@ -87,6 +87,11 @@ a {
   border: none;
   text-align: left;
 }
+
+#nav .pure-menu-link {
+  font-size: 0.9em;
+}
+
 #nav .pure-menu-link:hover,
 #nav .pure-menu-link:focus {
   background: rgb(55, 60, 90);
@@ -103,6 +108,15 @@ a {
 
 #nav .pure-menu-user {
   padding: 0.5em 1em;
+  font-size: 1em;
+  font-weight: bold;
+  font-style: initial;
+  border-bottom: 1px solid rgba(250, 250, 250, 0.2);
+  margin: 0 auto;
+}
+
+#nav .pure-menu-user span {
+  font-size: 1.5em;
 }
 /*
 * -- EMAIL STYLES --
@@ -228,7 +242,7 @@ a {
   /* Show the menu items on the larger screen */
   .nav-inner {
     display: block;
-    padding: 2em 0;
+    padding: 0 0 2em 0;
   }
 
   /* Hide the "Menu" button on larger screens */

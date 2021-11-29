@@ -38,7 +38,7 @@ exports.handler = async function (event) {
 async function addSession(sessionName, user) {
   return await client.query(
     q.Create(q.Collection('session'), {
-      data: { name: sessionName, user }
+      data: { name: sessionName, users: [user] }
     })
   )
 }

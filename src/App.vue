@@ -14,7 +14,9 @@
               <p class="pure-menu-user"><span>🐱‍💻</span> {{ user.name }}</p>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">🤝 Join new session</a>
+              <a @click="onJoinSessionClicked" href="#" class="pure-menu-link"
+                >🤝 Join session</a
+              >
             </li>
             <li class="pure-menu-item">
               <a @click="onCreateSessionClicked" href="#" class="pure-menu-link"
@@ -44,6 +46,10 @@
         v-if="showCreateSession"
         :onSessionCreated="onSessionCreated"
       />
+      <JoinSession
+        v-else-if="showJoinSession"
+        :onSessionJoined="onSessionJoined"
+      />
       <NoSession v-else />
     </div>
   </div>
@@ -61,6 +67,7 @@ import getLoggedInUser from '@/user/services/get-logged-in-user'
 import logUserOut from '@/user/services/log-user-out'
 import NoSession from '@/session/components/NoSession'
 import CreateSession from '@/session/components/CreateSession'
+import JoinSession from '@/session/components/JoinSession'
 import getLocalSession from '@/session/services/get-local-session'
 
 export default {
@@ -71,7 +78,8 @@ export default {
     GroomingSuccess,
     UserLogin,
     NoSession,
-    CreateSession
+    CreateSession,
+    JoinSession
   },
   data() {
     return {
@@ -79,7 +87,8 @@ export default {
       session: undefined,
       selectedTicket: undefined,
       groomingSuccessful: false,
-      showCreateSession: false
+      showCreateSession: false,
+      showJoinSession: false
     }
   },
   methods: {
@@ -111,6 +120,12 @@ export default {
     },
     tryGetLocalSession() {
       this.session = getLocalSession()
+    },
+    onJoinSessionClicked() {
+      this.showJoinSession = true
+    },
+    onSessionJoined(session) {
+      this.session = session
     }
   },
   setup() {

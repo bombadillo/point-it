@@ -70,7 +70,6 @@ export default {
   methods: {
     pointIt() {
       if (this.points) {
-        console.log(this.points)
         this.pointSubmitted(this.points)
       }
     }

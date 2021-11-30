@@ -13,13 +13,16 @@ exports.handler = async function (event) {
 
     const eventBody = JSON.parse(event.body)
 
-    if (!eventBody.name || !eventBody.user) {
+    if (!eventBody.name || !eventBody.ticketId) {
       return {
         statusCode: 400
       }
     }
 
-    const session = await addSession(eventBody.name, eventBody.user)
+    const session = await setActiveTicketForSession(
+      eventBody.name,
+      eventBody.ticketId
+    )
 
     if (session) {
       return {
@@ -29,7 +32,7 @@ exports.handler = async function (event) {
     }
 
     return {
-      statusCode: 409
+      statusCode: 404
     }
   } catch (e) {
     console.log(e)
@@ -41,25 +44,25 @@ exports.handler = async function (event) {
   }
 }
 
-async function addSession(sessionName, user) {
-  if (await sessionExists(sessionName)) {
-    return null
-  }
-
-  return await client.query(
-    q.Create(q.Collection('session'), {
-      data: { name: sessionName, users: [user] }
-    })
-  )
-}
-
-async function sessionExists(sessionName) {
+async function setActiveTicketForSession(name, ticketId) {
   const sessionResults = await client.query(
     q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), sessionName), { size: 1 }),
+      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
       q.Lambda(x => q.Get(x))
     )
   )
 
-  return sessionResults.data.length > 0
+  if (sessionResults.data.length === 0) {
+    return
+  }
+
+  const sessionRecord = sessionResults.data[0]
+
+  sessionRecord.data.activeTicketId = ticketId
+
+  return await client.query(
+    q.Update(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
+      data: { ...sessionRecord.data }
+    })
+  )
 }

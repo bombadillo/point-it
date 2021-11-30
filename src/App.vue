@@ -26,7 +26,7 @@
             <li class="pure-menu-item">
               <a @click="logout" href="#" class="pure-menu-link">👋 Logout</a>
             </li>
-            <li class="pure-menu-item">
+            <li v-if="session?.users" class="pure-menu-item">
               <p class="pure-menu-user"><span>👥</span> Users</p>
               <ul>
                 <li v-for="user in session.users" :key="user.name" class="user">
@@ -39,7 +39,10 @@
       </div>
     </div>
     <div v-if="session">
-      <GroomingTicketList :onTicketSelected="onTicketSelected" />
+      <GroomingTicketList
+        :onTicketSelected="onTicketSelected"
+        :onTicketsLoaded="onTicketsLoaded"
+      />
 
       <GroomingTicket
         v-if="!groomingSuccessful"
@@ -77,6 +80,8 @@ import NoSession from '@/session/components/NoSession'
 import CreateSession from '@/session/components/CreateSession'
 import JoinSession from '@/session/components/JoinSession'
 import getLocalSession from '@/session/services/get-local-session'
+import getSession from '@/session/services/get-session'
+import setActiveTicketForSession from '@/session/services/set-active-ticket-for-session'
 
 export default {
   name: 'App',
@@ -96,14 +101,24 @@ export default {
       selectedTicket: undefined,
       groomingSuccessful: false,
       showCreateSession: false,
-      showJoinSession: false
+      showJoinSession: false,
+      sessionRefreshInterval: undefined,
+      groomingTickets: []
     }
   },
   methods: {
+    onTicketsLoaded(groomingTickets) {
+      this.groomingTickets = groomingTickets
+
+      if (this.session.activeTicketId && !this.selectedTicket) {
+        this.setActiveTicket(this.session.activeTicketId)
+      }
+    },
     onTicketSelected(ticket) {
       console.log('ticket received', ticket)
       this.selectedTicket = ticket
       this.groomingSuccessful = false
+      setActiveTicketForSession(this.session.name, ticket)
     },
     pointSubmitted(point) {
       console.log('point received', point)
@@ -128,13 +143,41 @@ export default {
     },
     tryGetLocalSession() {
       this.session = getLocalSession()
-      console.log(this.session)
     },
     onJoinSessionClicked() {
       this.showJoinSession = true
     },
     onSessionJoined(session) {
       this.session = session
+    },
+    async triggerSessionRefreshInterval() {
+      this.sessionRefreshInterval = setInterval(async () => {
+        if (!this.session) {
+          clearInterval(this.triggerSessionRefreshInterval)
+          this.triggerSessionRefreshInterval = null
+          return
+        }
+
+        this.getLatestSession()
+      }, 3000)
+    },
+    async getLatestSession() {
+      const latestSession = await getSession(this.session.name)
+
+      if (
+        latestSession.activeTicketId !== this.session.activeTicketId ||
+        !this.selectedTicket
+      ) {
+        console.log('set active ticket')
+        this.setActiveTicket(latestSession.activeTicketId)
+      }
+
+      this.session = latestSession
+    },
+    setActiveTicket(ticketId) {
+      this.selectedTicket = this.groomingTickets.issues.find(
+        x => x.id === ticketId
+      )
     }
   },
   setup() {
@@ -143,6 +186,15 @@ export default {
   mounted() {
     this.tryGetLoggedInUser()
     this.tryGetLocalSession()
+  },
+  updated() {
+    if (
+      this.session &&
+      !this.sessionRefreshInterval &&
+      this.groomingTickets.length > 0
+    ) {
+      this.triggerSessionRefreshInterval()
+    }
   }
 }
 </script>

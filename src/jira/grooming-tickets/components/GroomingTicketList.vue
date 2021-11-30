@@ -22,32 +22,34 @@
 </template>
 
 <script>
-import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets';
-import Skeleton from '@/skeleton/components/Skeleton';
+import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
+import Skeleton from '@/skeleton/components/Skeleton'
 
 export default {
-  props: ['onTicketSelected'],
+  props: ['onTicketSelected', 'onTicketsLoaded'],
   components: { Skeleton },
   data() {
-    return { loading: true, groomingTickets: [] };
+    return { loading: true, groomingTickets: [] }
   },
   methods: {
     async getGroomingTickets() {
-      const groomingTickets = await getGroomingTickets();
-      this.groomingTickets = groomingTickets || [];
-      this.loading = false;
+      const groomingTickets = await getGroomingTickets()
+      this.groomingTickets = groomingTickets || []
+      console.log(groomingTickets)
+      this.onTicketsLoaded(groomingTickets)
+      this.loading = false
     },
     ticketSelected(ticket) {
-      this.onTicketSelected(ticket);
+      this.onTicketSelected(ticket)
     },
     showNoTicketsMessage() {
-      return this.groomingTickets.length === 0 && !this.loading;
+      return this.groomingTickets.length === 0 && !this.loading
     }
   },
   mounted() {
-    this.getGroomingTickets();
+    this.getGroomingTickets()
   }
-};
+}
 </script>
 
 <style>

@@ -11,15 +11,15 @@ exports.handler = async function (event) {
       keepAlive: false
     })
 
-    const eventBody = JSON.parse(event.body)
+    const sessionName = event.queryStringParameters.name
 
-    if (!eventBody.name || !eventBody.user) {
+    if (!sessionName || !sessionName === '') {
       return {
         statusCode: 400
       }
     }
 
-    const session = await addSession(eventBody.name, eventBody.user)
+    const session = await getSession(sessionName)
 
     if (session) {
       return {
@@ -29,7 +29,7 @@ exports.handler = async function (event) {
     }
 
     return {
-      statusCode: 409
+      statusCode: 404
     }
   } catch (e) {
     console.log(e)
@@ -41,25 +41,17 @@ exports.handler = async function (event) {
   }
 }
 
-async function addSession(sessionName, user) {
-  if (await sessionExists(sessionName)) {
-    return null
-  }
-
-  return await client.query(
-    q.Create(q.Collection('session'), {
-      data: { name: sessionName, users: [user] }
-    })
-  )
-}
-
-async function sessionExists(sessionName) {
+async function getSession(name) {
   const sessionResults = await client.query(
     q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), sessionName), { size: 1 }),
+      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
       q.Lambda(x => q.Get(x))
     )
   )
 
-  return sessionResults.data.length > 0
+  if (sessionResults.data.length === 0) {
+    return
+  }
+
+  return sessionResults.data[0]
 }

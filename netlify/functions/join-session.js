@@ -45,7 +45,7 @@ async function joinSession(name, user) {
   const sessionResults = await client.query(
     q.Map(
       q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda((x) => q.Get(x))
+      q.Lambda(x => q.Get(x))
     )
   )
 
@@ -57,7 +57,7 @@ async function joinSession(name, user) {
 
   const users = sessionRecord.data.users
 
-  const userExists = users.filter((x) => x.name === user.name).length > 0
+  const userExists = users.filter(x => x.name === user.name).length > 0
 
   if (userExists) {
     return sessionRecord

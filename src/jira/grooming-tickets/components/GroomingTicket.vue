@@ -52,6 +52,17 @@
               </button>
             </div>
           </div>
+
+          <div class="pure-g">
+            <div class="pure-u-1">
+              <ul>
+                <li v-for="user in session.users" :key="user.name">
+                  <b>{{ user.name }}</b>
+                  {{ user.points ? `${user.points} points` : 'not pointed' }}
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -60,7 +71,7 @@
 
 <script>
 export default {
-  props: ['ticket', 'pointSubmitted'],
+  props: ['ticket', 'pointSubmitted', 'session'],
   data() {
     return {
       points: 0,

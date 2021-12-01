@@ -13,15 +13,16 @@ exports.handler = async function (event) {
 
     const eventBody = JSON.parse(event.body)
 
-    if (!eventBody.name) {
+    if (!eventBody.name || !eventBody.user || !eventBody.points) {
       return {
         statusCode: 400
       }
     }
 
-    const session = await setActiveTicketForSession(
+    const session = await addPointsToActiveTicket(
       eventBody.name,
-      eventBody.ticketId
+      eventBody.user,
+      eventBody.points
     )
 
     if (session) {
@@ -44,7 +45,7 @@ exports.handler = async function (event) {
   }
 }
 
-async function setActiveTicketForSession(name, ticketId) {
+async function addPointsToActiveTicket(name, user, points) {
   const sessionResults = await client.query(
     q.Map(
       q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
@@ -58,22 +59,34 @@ async function setActiveTicketForSession(name, ticketId) {
 
   const sessionRecord = sessionResults.data[0]
 
-  const updatedSession = {
-    name: sessionRecord.data.name,
-    users: sessionRecord.data.users
+  const users = sessionRecord.data.users
+
+  const userExists = users.filter(x => x.name === user.name).length > 0
+
+  if (!userExists) {
+    null
   }
 
-  if (ticketId) {
-    updatedSession.activeTicketId = ticketId
-  }
+  let usersPointed = 0
+  users.forEach(item => {
+    if (item.name === user.name) {
+      item.points = points
+    }
 
-  sessionRecord.data.users.forEach(item => {
-    delete item.points
+    if (item.points) {
+      usersPointed++
+    }
   })
 
+  if (usersPointed === users.length) {
+    sessionRecord.data.allUsersPointed = true
+  }
+
+  sessionRecord.data.users = users
+
   return await client.query(
-    q.Replace(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
-      data: updatedSession
+    q.Update(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
+      data: { ...sessionRecord.data }
     })
   )
 }

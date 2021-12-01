@@ -1,7 +1,7 @@
 <template>
   <div class="pure-g center container">
     <div class="pure-u-1-4">
-      <form @submit="onSubmit" class="pure-form pure-form-stacked">
+      <form @submit.prevent="onSubmit" class="pure-form pure-form-stacked">
         <fieldset>
           <legend>Login</legend>
           <label for="name">Name</label>

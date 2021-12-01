@@ -35,7 +35,6 @@ export default {
     async getGroomingTickets() {
       const groomingTickets = await getGroomingTickets()
       this.groomingTickets = groomingTickets || []
-      console.log(groomingTickets)
       this.onTicketsLoaded(groomingTickets)
       this.loading = false
     },

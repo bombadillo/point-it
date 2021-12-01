@@ -14,17 +14,28 @@
               <p class="pure-menu-user"><span>🐱‍💻</span> {{ user.name }}</p>
             </li>
             <li class="pure-menu-item">
-              <a @click="onJoinSessionClicked" href="#" class="pure-menu-link"
+              <a
+                @click="onJoinSessionClicked"
+                href="javascript:void(0)"
+                class="pure-menu-link"
                 >🤝 Join session</a
               >
             </li>
             <li class="pure-menu-item">
-              <a @click="onCreateSessionClicked" href="#" class="pure-menu-link"
+              <a
+                @click="onCreateSessionClicked"
+                href="javascript:void(0)"
+                class="pure-menu-link"
                 >🆕 Create new session</a
               >
             </li>
             <li class="pure-menu-item">
-              <a @click="logout" href="#" class="pure-menu-link">👋 Logout</a>
+              <a
+                @click="logout"
+                href="javascript:void(0)"
+                class="pure-menu-link"
+                >👋 Logout</a
+              >
             </li>
             <li v-if="session?.users" class="pure-menu-item">
               <p class="pure-menu-user"><span>👥</span> Users</p>
@@ -48,6 +59,7 @@
         v-if="!groomingSuccessful"
         :ticket="selectedTicket"
         :pointSubmitted="pointSubmitted"
+        :session="session"
       />
 
       <GroomingSuccess v-if="groomingSuccessful" />
@@ -82,6 +94,7 @@ import JoinSession from '@/session/components/JoinSession'
 import getLocalSession from '@/session/services/get-local-session'
 import getSession from '@/session/services/get-session'
 import setActiveTicketForSession from '@/session/services/set-active-ticket-for-session'
+import addPointsToActiveTicket from '@/session/services/add-points-to-active-ticket'
 
 export default {
   name: 'App',
@@ -120,9 +133,11 @@ export default {
       this.groomingSuccessful = false
       setActiveTicketForSession(this.session.name, ticket)
     },
-    pointSubmitted(point) {
-      console.log('point received', point)
-      this.groomingSuccessful = true
+    pointSubmitted(points) {
+      console.log('point received', points)
+      addPointsToActiveTicket(this.session.name, this.user, points)
+      // this.groomingSuccessful = true
+      //setActiveTicketForSession(this.session.name, null)
     },
     tryGetLoggedInUser() {
       this.user = getLoggedInUser()
@@ -172,6 +187,11 @@ export default {
         this.setActiveTicket(latestSession.activeTicketId)
       }
 
+      if (latestSession.allUsersPointed) {
+        this.groomingSuccessful = true
+        setActiveTicketForSession(this.session.name, null)
+      }
+
       this.session = latestSession
     },
     setActiveTicket(ticketId) {
@@ -188,11 +208,7 @@ export default {
     this.tryGetLocalSession()
   },
   updated() {
-    if (
-      this.session &&
-      !this.sessionRefreshInterval &&
-      this.groomingTickets.length > 0
-    ) {
+    if (this.session && !this.sessionRefreshInterval) {
       this.triggerSessionRefreshInterval()
     }
   }

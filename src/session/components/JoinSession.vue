@@ -2,7 +2,7 @@
   <div class="pure-g">
     <div class="pure-u-1">
       <h1>Join session</h1>
-      <form @submit="onFormSubmit" class="pure-form pure-form-stacked">
+      <form @submit.prevent="onFormSubmit" class="pure-form pure-form-stacked">
         <fieldset>
           <legend>Session details</legend>
           <label for="session-name">Name</label>

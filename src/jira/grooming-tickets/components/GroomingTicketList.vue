@@ -5,7 +5,9 @@
     <div
       v-for="ticket in tickets.issues"
       :key="ticket.id"
-      class="email-item email-item-selected pure-g"
+      :class="`email-item email-item-selected pure-g ${
+        ticket.id === selectedTicket.id ? 'selected' : ''
+      } `"
       @click="ticketSelected(ticket)"
     >
       <div class="pure-u">{{ getTicketEmoji(ticket) }}</div>
@@ -25,7 +27,7 @@
 import Skeleton from '@/skeleton/components/Skeleton'
 
 export default {
-  props: ['onTicketSelected', 'loadingTickets', 'tickets'],
+  props: ['onTicketSelected', 'loadingTickets', 'tickets', 'selectedTicket'],
   components: { Skeleton },
   methods: {
     ticketSelected(ticket) {
@@ -50,7 +52,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .email-item {
   transition: background 0.5s ease;
   background: rgba(238, 238, 238, 0.1);
@@ -62,5 +64,15 @@ export default {
 
 h3 {
   padding: 10px;
+}
+
+.selected,
+.selected:hover {
+  background: rgba(0, 117, 225, 0.9);
+  color: white;
+}
+
+.selected .email-name {
+  color: rgba(250, 250, 250, 0.7);
 }
 </style>

@@ -54,6 +54,7 @@
         :onTicketSelected="onTicketSelected"
         :tickets="groomingTickets"
         :loadingTickets="loadingGroomingTickets"
+        :selectedTicket="selectedTicket"
       />
 
       <GroomingTicket
@@ -223,7 +224,7 @@ export default {
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        (x) => x.id === ticketId
+        x => x.id === ticketId
       )
     },
     async getGroomingTickets(showLoader = false) {

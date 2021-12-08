@@ -1,5 +1,5 @@
-module.exports = (payload) => {
-  const mappedIssues = payload.issues.map((issue) => {
+module.exports = payload => {
+  const mappedIssues = payload.issues.map(issue => {
     return {
       id: issue.id,
       name: issue.key,
@@ -14,8 +14,6 @@ module.exports = (payload) => {
 }
 
 function buildDescription(descriptionFields) {
-  descriptionFields.content.map
-
   const str = descriptionFields.content.reduce((acc, curr) => {
     return `${acc} ${getContentFromDescriptionItem(curr.content)}`
   }, '')
@@ -30,7 +28,7 @@ function getContentFromDescriptionItem(content, contentStringPassedIn) {
     return contentString
   }
 
-  content.forEach((contentItem) => {
+  content.forEach(contentItem => {
     if (content.length === 0) {
       return ''
     }

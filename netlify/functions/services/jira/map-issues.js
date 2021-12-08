@@ -14,6 +14,10 @@ module.exports = payload => {
 }
 
 function buildDescription(descriptionFields) {
+  if (!descriptionFields) {
+    return ''
+  }
+
   const str = descriptionFields.content.reduce((acc, curr) => {
     return `${acc} ${getContentFromDescriptionItem(curr.content)}`
   }, '')

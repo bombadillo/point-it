@@ -1,16 +1,7 @@
-const faunadb = require('faunadb'),
-  q = faunadb.query
-
-let client
+const setActiveTicketForSession = require('./services/jira/set-active-ticket-for-session')
 
 exports.handler = async function (event) {
   try {
-    client = new faunadb.Client({
-      secret: process.env.FAUNADB_SECRET,
-      domain: 'db.eu.fauna.com',
-      keepAlive: false
-    })
-
     const eventBody = JSON.parse(event.body)
 
     if (!eventBody.name) {
@@ -42,38 +33,4 @@ exports.handler = async function (event) {
       body: JSON.stringify(e)
     }
   }
-}
-
-async function setActiveTicketForSession(name, ticketId) {
-  const sessionResults = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda(x => q.Get(x))
-    )
-  )
-
-  if (sessionResults.data.length === 0) {
-    return
-  }
-
-  const sessionRecord = sessionResults.data[0]
-
-  const updatedSession = {
-    name: sessionRecord.data.name,
-    users: sessionRecord.data.users
-  }
-
-  if (ticketId) {
-    updatedSession.activeTicketId = ticketId
-  }
-
-  sessionRecord.data.users.forEach(item => {
-    delete item.points
-  })
-
-  return await client.query(
-    q.Replace(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
-      data: updatedSession
-    })
-  )
 }

@@ -1,9 +1,9 @@
-export default async (sessionName, user, points) => {
+export default async (sessionName, user, points, activeTicketId) => {
   const setActiveTicketResponse = await fetch(
     '/.netlify/functions/add-points-to-active-ticket',
     {
       method: 'PUT',
-      body: JSON.stringify({ name: sessionName, user, points })
+      body: JSON.stringify({ name: sessionName, user, points, activeTicketId })
     }
   )
 

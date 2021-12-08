@@ -63,6 +63,12 @@
               </ul>
             </div>
           </div>
+
+          <div v-if="repointRequired" class="pure-g">
+            <div class="pure-u-lg-1 pure-u-xl-1-3 message">
+              <p>User pointing is not unanimous. Repoint!</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,7 +77,7 @@
 
 <script>
 export default {
-  props: ['ticket', 'pointSubmitted', 'session'],
+  props: ['ticket', 'pointSubmitted', 'session', 'repointRequired'],
   data() {
     return {
       points: 0,
@@ -101,5 +107,13 @@ export default {
 .points {
   display: inline-block;
   margin-left: 10px;
+}
+
+.message {
+  padding: 10px;
+  background-color: #1f8dd6;
+  color: white;
+  font-size: 1.125em;
+  text-align: center;
 }
 </style>

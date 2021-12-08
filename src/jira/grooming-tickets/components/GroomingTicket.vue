@@ -58,7 +58,7 @@
               <ul>
                 <li v-for="user in session.users" :key="user.name">
                   <b>{{ user.name }}</b>
-                  {{ user.points ? `${user.points} points` : 'not pointed' }}
+                  {{ user.points ? 'pointed 🤘' : 'not pointed 🤔' }}
                 </li>
               </ul>
             </div>

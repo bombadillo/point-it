@@ -8,7 +8,7 @@
       class="email-item email-item-selected pure-g"
       @click="ticketSelected(ticket)"
     >
-      <div class="pure-u">🎫</div>
+      <div class="pure-u">{{ getTicketEmoji(ticket) }}</div>
 
       <div class="pure-u-3-4">
         <h5 class="email-name">{{ ticket.reportedBy }}</h5>
@@ -33,6 +33,18 @@ export default {
     },
     showNoTicketsMessage() {
       return this.tickets?.length === 0 && !this.loadingTickets
+    },
+    getTicketEmoji(ticket) {
+      switch (ticket.type) {
+        case 'Story':
+          return '🎫'
+        case 'Bug':
+          return '🐛'
+        case 'Technical Spike':
+          return '💡'
+        default:
+          return '🤖'
+      }
     }
   }
 }

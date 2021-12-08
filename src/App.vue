@@ -52,7 +52,8 @@
     <div v-if="session">
       <GroomingTicketList
         :onTicketSelected="onTicketSelected"
-        :onTicketsLoaded="onTicketsLoaded"
+        :tickets="groomingTickets"
+        :loadingTickets="loadingGroomingTickets"
       />
 
       <GroomingTicket
@@ -60,6 +61,7 @@
         :ticket="selectedTicket"
         :pointSubmitted="pointSubmitted"
         :session="session"
+        :repointRequired="repointRequired"
       />
 
       <GroomingSuccess v-if="groomingSuccessful" />
@@ -82,6 +84,7 @@
 import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
 
 import '@/assets/styles/app-styles.css'
+import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
 import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
 import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
@@ -115,29 +118,31 @@ export default {
       groomingSuccessful: false,
       showCreateSession: false,
       showJoinSession: false,
+      repointRequired: false,
+      loadingGroomingTickets: true,
       sessionRefreshInterval: undefined,
+      getGroomingTicketsInterval: undefined,
       groomingTickets: []
     }
   },
   methods: {
-    onTicketsLoaded(groomingTickets) {
-      this.groomingTickets = groomingTickets
-
-      if (this.session.activeTicketId && !this.selectedTicket) {
+    onTicketsLoaded() {
+      if (this.session?.activeTicketId && !this.selectedTicket) {
         this.setActiveTicket(this.session.activeTicketId)
       }
     },
     onTicketSelected(ticket) {
-      console.log('ticket received', ticket)
       this.selectedTicket = ticket
       this.groomingSuccessful = false
       setActiveTicketForSession(this.session.name, ticket)
     },
     pointSubmitted(points) {
-      console.log('point received', points)
-      addPointsToActiveTicket(this.session.name, this.user, points)
-      // this.groomingSuccessful = true
-      //setActiveTicketForSession(this.session.name, null)
+      addPointsToActiveTicket(
+        this.session.name,
+        this.user,
+        points,
+        this.session.activeTicketId
+      )
     },
     tryGetLoggedInUser() {
       this.user = getLoggedInUser()
@@ -158,6 +163,10 @@ export default {
     },
     tryGetLocalSession() {
       this.session = getLocalSession()
+
+      if (this.session?.groomingSuccessful) {
+        this.groomingSuccessful = true
+      }
     },
     onJoinSessionClicked() {
       this.showJoinSession = true
@@ -176,40 +185,67 @@ export default {
         this.getLatestSession()
       }, 3000)
     },
+    async tiggerGetGroomingTicketsInterval() {
+      this.getGroomingTicketsInterval = setInterval(async () => {
+        if (!this.session) {
+          clearInterval(this.getGroomingTicketsInterval)
+          this.getGroomingTicketsInterval = null
+          return
+        }
+
+        this.getGroomingTickets()
+      }, 10000)
+    },
     async getLatestSession() {
       const latestSession = await getSession(this.session.name)
 
       if (
-        latestSession.activeTicketId !== this.session.activeTicketId ||
-        !this.selectedTicket
+        latestSession.activeTicketId &&
+        (latestSession.activeTicketId !== this.session.activeTicketId ||
+          !this.selectedTicket)
       ) {
-        console.log('set active ticket')
+        this.groomingSuccessful = false
         this.setActiveTicket(latestSession.activeTicketId)
       }
 
-      if (latestSession.allUsersPointed) {
+      if (!this.groomingSuccessful && latestSession.groomingSuccessful) {
+        this.getGroomingTickets(true)
         this.groomingSuccessful = true
-        setActiveTicketForSession(this.session.name, null)
+        this.repointRequired = false
+      } else if (
+        latestSession.allUsersPointed &&
+        !latestSession.pointsAreUnanimous
+      ) {
+        this.repointRequired = true
       }
 
       this.session = latestSession
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        x => x.id === ticketId
+        (x) => x.id === ticketId
       )
+    },
+    async getGroomingTickets(showLoader = false) {
+      this.loadingGroomingTickets = showLoader
+      const groomingTickets = await getGroomingTickets()
+      this.groomingTickets = groomingTickets || []
+      this.onTicketsLoaded(groomingTickets)
+      this.loadingGroomingTickets = false
     }
   },
   setup() {
     initSkeleton()
   },
   mounted() {
+    this.getGroomingTickets(true)
     this.tryGetLoggedInUser()
     this.tryGetLocalSession()
   },
   updated() {
     if (this.session && !this.sessionRefreshInterval) {
       this.triggerSessionRefreshInterval()
+      this.tiggerGetGroomingTicketsInterval()
     }
   }
 }

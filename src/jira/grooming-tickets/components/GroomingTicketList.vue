@@ -1,9 +1,9 @@
 <template>
   <div id="list" class="pure-u-1">
-    <Skeleton v-if="loading" :totalToDisplay="4" />
+    <Skeleton v-if="loadingTickets" :totalToDisplay="4" />
     <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div
-      v-for="ticket in groomingTickets.issues"
+      v-for="ticket in tickets.issues"
       :key="ticket.id"
       class="email-item email-item-selected pure-g"
       @click="ticketSelected(ticket)"
@@ -22,31 +22,18 @@
 </template>
 
 <script>
-import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
 import Skeleton from '@/skeleton/components/Skeleton'
 
 export default {
-  props: ['onTicketSelected', 'onTicketsLoaded'],
+  props: ['onTicketSelected', 'loadingTickets', 'tickets'],
   components: { Skeleton },
-  data() {
-    return { loading: true, groomingTickets: [] }
-  },
   methods: {
-    async getGroomingTickets() {
-      const groomingTickets = await getGroomingTickets()
-      this.groomingTickets = groomingTickets || []
-      this.onTicketsLoaded(groomingTickets)
-      this.loading = false
-    },
     ticketSelected(ticket) {
       this.onTicketSelected(ticket)
     },
     showNoTicketsMessage() {
-      return this.groomingTickets.length === 0 && !this.loading
+      return this.tickets?.length === 0 && !this.loadingTickets
     }
-  },
-  mounted() {
-    this.getGroomingTickets()
   }
 }
 </script>

@@ -170,7 +170,12 @@ export default {
       }
     },
     onJoinSessionClicked() {
+      this.session = undefined
       this.showJoinSession = true
+      clearInterval(this.triggerSessionRefreshInterval)
+      this.triggerSessionRefreshInterval = null
+      clearInterval(this.getGroomingTicketsInterval)
+      this.getGroomingTicketsInterval = null
     },
     onSessionJoined(session) {
       this.session = session
@@ -210,7 +215,7 @@ export default {
       }
 
       if (!this.groomingSuccessful && latestSession.groomingSuccessful) {
-        this.getGroomingTickets(true)
+        this.getGroomingTickets()
         this.groomingSuccessful = true
         this.repointRequired = false
       } else if (
@@ -244,7 +249,11 @@ export default {
     this.tryGetLocalSession()
   },
   updated() {
-    if (this.session && !this.sessionRefreshInterval) {
+    if (
+      this.session &&
+      !this.sessionRefreshInterval &&
+      !this.getGroomingTicketsInterval
+    ) {
       this.triggerSessionRefreshInterval()
       this.tiggerGetGroomingTicketsInterval()
     }

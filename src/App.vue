@@ -1,6 +1,6 @@
 <template>
   <div v-if="!user"><UserLogin :userLoggedIn="userLoggedIn" /></div>
-
+  <!-- 
   <div v-if="user" id="layout" class="content pure-g">
     <div id="nav" class="pure-u">
       <a href="#" id="menuLink" class="nav-menu-button">Menu</a>
@@ -78,6 +78,14 @@
       />
       <NoSession v-else />
     </div>
+  </div> -->
+
+  <div v-if="user" class="container">
+    <div class="flex flex-row flex-col md:flex-row">
+      <div class="basis-1/4">sidebar</div>
+      <div class="basis-1/4">tickets</div>
+      <div class="basis-1/2">ticket</div>
+    </div>
   </div>
 </template>
 
@@ -86,15 +94,15 @@ import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-load
 
 import '@/assets/styles/app-styles.css'
 import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
-import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
-import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
-import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
+// import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
+// import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
+// import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
 import getLoggedInUser from '@/user/services/get-logged-in-user'
 import logUserOut from '@/user/services/log-user-out'
-import NoSession from '@/session/components/NoSession'
-import CreateSession from '@/session/components/CreateSession'
-import JoinSession from '@/session/components/JoinSession'
+// import NoSession from '@/session/components/NoSession'
+// import CreateSession from '@/session/components/CreateSession'
+// import JoinSession from '@/session/components/JoinSession'
 import getLocalSession from '@/session/services/get-local-session'
 import getSession from '@/session/services/get-session'
 import setActiveTicketForSession from '@/session/services/set-active-ticket-for-session'
@@ -103,13 +111,13 @@ import addPointsToActiveTicket from '@/session/services/add-points-to-active-tic
 export default {
   name: 'App',
   components: {
-    GroomingTicketList,
-    GroomingTicket,
-    GroomingSuccess,
-    UserLogin,
-    NoSession,
-    CreateSession,
-    JoinSession
+    // GroomingTicketList,
+    // GroomingTicket,
+    // GroomingSuccess,
+    UserLogin
+    // NoSession,
+    // CreateSession,
+    // JoinSession
   },
   data() {
     return {
@@ -229,7 +237,7 @@ export default {
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        x => x.id === ticketId
+        (x) => x.id === ticketId
       )
     },
     async getGroomingTickets(showLoader = false) {

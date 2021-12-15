@@ -1,6 +1,6 @@
 <template>
   <div id="list" class="pure-u-1">
-    <Skeleton v-if="loadingTickets" :totalToDisplay="4" />
+    <SkeletonLoader v-if="loadingTickets" :totalToDisplay="4" />
     <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div
       v-for="ticket in tickets.issues"
@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import Skeleton from '@/skeleton/components/Skeleton'
+import SkeletonLoader from '@/skeleton/components/SkeletonLoader'
 
 export default {
   props: ['onTicketSelected', 'loadingTickets', 'tickets', 'selectedTicket'],
-  components: { Skeleton },
+  components: { SkeletonLoader },
   methods: {
     ticketSelected(ticket) {
       this.onTicketSelected(ticket)

@@ -6,7 +6,7 @@
       v-for="ticket in tickets.issues"
       :key="ticket.id"
       :class="`email-item email-item-selected pure-g ${
-        ticket.id === selectedTicket.id ? 'selected' : ''
+        ticket.id === selectedTicket?.id ? 'selected' : ''
       } `"
       @click="ticketSelected(ticket)"
     >

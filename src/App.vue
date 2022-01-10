@@ -81,9 +81,16 @@
   </div> -->
 
   <div v-if="user" class="container">
-    <div class="flex flex-row flex-col md:flex-row">
-      <div class="basis-1/4">sidebar</div>
-      <div class="basis-1/4">tickets</div>
+    <div class="flex flex-col md:flex-row">
+      <div class="basis-1/4"><NavSidebar /></div>
+      <div class="basis-1/4 bg-gray-100">
+        <GroomingTicketList
+          :onTicketSelected="onTicketSelected"
+          :tickets="groomingTickets"
+          :loadingTickets="loadingGroomingTickets"
+          :selectedTicket="selectedTicket"
+        />
+      </div>
       <div class="basis-1/2">ticket</div>
     </div>
   </div>
@@ -92,9 +99,9 @@
 <script>
 import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
 
-import '@/assets/styles/app-styles.css'
 import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
-// import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
+import NavSidebar from '@/navigation/components/NavSidebar'
+import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
 // import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 // import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
@@ -111,13 +118,14 @@ import addPointsToActiveTicket from '@/session/services/add-points-to-active-tic
 export default {
   name: 'App',
   components: {
-    // GroomingTicketList,
+    GroomingTicketList,
     // GroomingTicket,
     // GroomingSuccess,
-    UserLogin
+    UserLogin,
     // NoSession,
     // CreateSession,
-    // JoinSession
+    // JoinSession,
+    NavSidebar
   },
   data() {
     return {
@@ -237,7 +245,7 @@ export default {
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        (x) => x.id === ticketId
+        x => x.id === ticketId
       )
     },
     async getGroomingTickets(showLoader = false) {

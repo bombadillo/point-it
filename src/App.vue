@@ -82,8 +82,10 @@
 
   <div v-if="user" class="container">
     <div class="flex flex-col md:flex-row">
-      <div class="basis-1/4"><NavSidebar /></div>
-      <div class="basis-1/4 bg-gray-100">
+      <div class="basis-1/4">
+        <NavSidebar :user="user" :session="session" />
+      </div>
+      <div class="basis-1/4 bg-gray-200">
         <GroomingTicketList
           :onTicketSelected="onTicketSelected"
           :tickets="groomingTickets"
@@ -91,7 +93,15 @@
           :selectedTicket="selectedTicket"
         />
       </div>
-      <div class="basis-1/2">ticket</div>
+      <div class="basis-1/2 bg-gray-100">
+        <GroomingTicket
+          v-if="!groomingSuccessful"
+          :ticket="selectedTicket"
+          :pointSubmitted="pointSubmitted"
+          :session="session"
+          :repointRequired="repointRequired"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -102,7 +112,7 @@ import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-load
 import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
 import NavSidebar from '@/navigation/components/NavSidebar'
 import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
-// import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
+import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
 // import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
 import UserLogin from '@/user/login/components/UserLogin'
 import getLoggedInUser from '@/user/services/get-logged-in-user'
@@ -119,7 +129,7 @@ export default {
   name: 'App',
   components: {
     GroomingTicketList,
-    // GroomingTicket,
+    GroomingTicket,
     // GroomingSuccess,
     UserLogin,
     // NoSession,

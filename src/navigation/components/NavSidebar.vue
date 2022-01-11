@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="h-20 bg-gray-200 flex flex-row content-center border-r border-gray-300 drop-shadow-lg"
+      class="h-20 bg-gray-300 flex flex-row content-center border-r border-gray-300 drop-shadow-lg"
     >
       <div class="basis-1/4">
         <NavLogo />
@@ -21,7 +21,7 @@
 
   <div
     v-if="open || !mobileView"
-    class="flex flex-row flex-col h-screen md:h-100 fixed md:relative top-0 right-0 w-4/5 md:w-full bg-gray-200 border-r border-gray-300 drop-shadow-lg"
+    class="flex flex-row flex-col h-screen md:h-100 fixed md:relative top-0 right-0 w-4/5 md:w-full bg-gray-300 drop-shadow-lg z-10"
   >
     <div class="relative md:hidden">
       <img
@@ -32,18 +32,49 @@
       />
     </div>
 
-    <ul>
-      <li>1</li>
-      <li>2</li>
-    </ul>
+    <div class="">
+      <ul class="p-5">
+        <li class="bg-gray-400 rounded p-2">
+          <p>
+            <span>🐱‍💻</span> Signed in as
+            <span class="text-indigo-500 font-bold">{{ user.name }}</span>
+          </p>
+        </li>
+        <li class="pl-4">
+          <a @click="onJoinSessionClicked" href="javascript:void(0)" class=""
+            >🤝 Join session</a
+          >
+        </li>
+        <li class="pl-4">
+          <a @click="onCreateSessionClicked" href="javascript:void(0)" class=""
+            >🆕 Create new session</a
+          >
+        </li>
+        <li class="pl-4 mb-3">
+          <a @click="logout" href="javascript:void(0)" class="">👋 Logout</a>
+        </li>
+        <li v-if="session?.users" class="bg-gray-400 rounded p-2">
+          <p class=""><span>👥</span> Users in session</p>
+        </li>
+        <li
+          v-for="user in session.users"
+          :key="user.name"
+          class="pl-4 font-bold text-gray-700"
+        >
+          {{ user.name }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
 import NavLogo from '@/navigation/components/NavLogo'
 export default {
+  props: ['user', 'session'],
   components: { NavLogo },
   data() {
+    console.log(this.user)
     return { open: false, mobileView: this.isMobile() }
   },
   methods: {

@@ -31,18 +31,18 @@
 
       <div class="">
         <ul class="p-5">
-          <li class="bg-gray-400 rounded p-2">
+          <li class="bg-violet-300 rounded p-2">
             <p>
               <span>🐱‍💻</span> Signed in as
-              <span class="text-indigo-500 font-bold">{{ user.name }}</span>
+              <span class="text-indigo-700 font-bold">{{ user.name }}</span>
             </p>
           </li>
-          <li class="pl-4">
+          <li class="ml-4 p-2 mt-2 hover:bg-gray-200 hover:rounded">
             <a @click="onJoinSessionClicked" href="javascript:void(0)" class=""
               >🤝 Join session</a
             >
           </li>
-          <li class="pl-4">
+          <li class="ml-4 p-2 mt-1 hover:bg-gray-200 hover:rounded">
             <a
               @click="onCreateSessionClicked"
               href="javascript:void(0)"
@@ -50,14 +50,14 @@
               >🆕 Create new session</a
             >
           </li>
-          <li class="pl-4 mb-3">
+          <li class="ml-4 p-2 mt-1 hover:bg-gray-200 hover:rounded mb-3">
             <a @click="logout" href="javascript:void(0)" class="">👋 Logout</a>
           </li>
-          <li v-if="session?.users" class="bg-gray-400 rounded p-2">
+          <li v-if="session?.users" class="bg-violet-300 rounded p-2">
             <p class=""><span>👥</span> Users in session</p>
           </li>
           <li
-            v-for="user in session.users"
+            v-for="user in session?.users"
             :key="user.name"
             class="pl-4 font-bold text-gray-700"
           >
@@ -72,7 +72,13 @@
 <script>
 import NavLogo from '@/navigation/components/NavLogo'
 export default {
-  props: ['user', 'session'],
+  props: [
+    'user',
+    'session',
+    'logout',
+    'onCreateSessionClicked',
+    'onJoinSessionClicked'
+  ],
   components: { NavLogo },
   data() {
     console.log(this.user)

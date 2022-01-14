@@ -1,14 +1,18 @@
 <template>
   <div class="p-10">
-    <div v-if="!ticket" class="">
-      <div class="pure-u-1">
-        <h3>Waiting on a ticket</h3>
-        <img
-          src="https://64.media.tumblr.com/tumblr_ljkn5yjPkO1qixleeo1_400.gifv"
-          alt="No ticket selected"
-        />
-      </div>
+    <div
+      v-if="!ticket && !groomingSuccessful"
+      class="flex flex-col items-center"
+    >
+      <img
+        src="https://64.media.tumblr.com/tumblr_ljkn5yjPkO1qixleeo1_400.gifv"
+        alt="No ticket selected"
+        class="rounded mt-4 drop-shadow"
+      />
+      <h3 class="text-xl font-bold text-center">Waiting on a ticket...</h3>
     </div>
+
+    <GroomingSuccess v-if="groomingSuccessful" />
 
     <div
       v-if="ticket"
@@ -88,8 +92,19 @@
 </template>
 
 <script>
+import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
+
 export default {
-  props: ['ticket', 'pointSubmitted', 'session', 'repointRequired'],
+  props: [
+    'ticket',
+    'pointSubmitted',
+    'session',
+    'repointRequired',
+    'groomingSuccessful'
+  ],
+  components: {
+    GroomingSuccess
+  },
   data() {
     return {
       points: 1,

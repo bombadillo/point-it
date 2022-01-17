@@ -7,7 +7,7 @@ module.exports = async (ticketId, points) => {
   const password = process.env.JIRA_PASSWORD
   const body = {
     fields: {
-      customfield_10117: points
+      customfield_10117: +points
     },
     update: {
       labels: [{ remove: 'Grooming' }]

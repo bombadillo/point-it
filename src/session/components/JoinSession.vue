@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-row md:mt-14 p-10">
-    <div class="basis-1/4">
+    <div class="basis-full md:basis-1/4">
       <h1 class="text-xl font-bold">Join session</h1>
 
       <form @submit.prevent="onSubmit" class="mt-4 space-y-6">

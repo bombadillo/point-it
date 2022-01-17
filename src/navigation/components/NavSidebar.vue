@@ -11,24 +11,15 @@
           alt="Menu"
           src="https://img.icons8.com/stickers/2x/menu.png"
           class="w-11 cursor-pointer"
-          @click="openMenu"
+          @click="toggleMenu"
         />
       </div>
     </div>
 
     <div
       v-if="open || !mobileView"
-      class="flex flex-row flex-col h-screen md:h-100 fixed md:relative top-0 right-0 w-4/5 md:w-full bg-gray-300 z-10"
+      class="flex flex-row flex-col h-screen md:h-100 md:relative top-0 right-0 w-full bg-gray-300 z-10"
     >
-      <div class="relative md:hidden">
-        <img
-          alt="close"
-          src="https://img.icons8.com/stickers/2x/circled-chevron-right.png"
-          class="w-1/6 absolute top-2 -left-7 cursor-pointer"
-          @click="closeMenu"
-        />
-      </div>
-
       <div class="">
         <ul class="p-5">
           <li class="bg-violet-300 rounded p-2">
@@ -38,13 +29,16 @@
             </p>
           </li>
           <li class="ml-4 p-2 mt-2 hover:bg-gray-200 hover:rounded">
-            <a @click="onJoinSessionClicked" href="javascript:void(0)" class=""
+            <a
+              @click="menuItemSelected(onJoinSessionClicked)"
+              href="javascript:void(0)"
+              class=""
               >🤝 Join session</a
             >
           </li>
           <li class="ml-4 p-2 mt-1 hover:bg-gray-200 hover:rounded">
             <a
-              @click="onCreateSessionClicked"
+              @click="menuItemSelected(onCreateSessionClicked)"
               href="javascript:void(0)"
               class=""
               >🆕 Create new session</a
@@ -85,11 +79,8 @@ export default {
     return { open: false, mobileView: this.isMobile() }
   },
   methods: {
-    openMenu() {
-      this.open = true
-    },
-    closeMenu() {
-      this.open = false
+    toggleMenu() {
+      this.open = !this.open
     },
     isMobile() {
       if (screen.width <= 640) {
@@ -97,6 +88,10 @@ export default {
       } else {
         return false
       }
+    },
+    menuItemSelected(callback) {
+      this.open = false
+      callback()
     }
   }
 }

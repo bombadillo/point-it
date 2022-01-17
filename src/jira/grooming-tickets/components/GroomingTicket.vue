@@ -1,73 +1,89 @@
 <template>
-  <div v-if="!ticket" class="pure-g">
-    <div class="pure-u-1">
-      <h3>Waiting on a ticket</h3>
+  <div class="p-10">
+    <div
+      v-if="!ticket && !groomingSuccessful"
+      class="flex flex-col items-center"
+    >
       <img
         src="https://64.media.tumblr.com/tumblr_ljkn5yjPkO1qixleeo1_400.gifv"
         alt="No ticket selected"
+        class="rounded mt-4 drop-shadow"
       />
+      <h3 class="text-xl font-bold text-center">Waiting on a ticket...</h3>
     </div>
-  </div>
 
-  <div v-if="ticket" id="main" class="pure-u-1">
-    <div class="email-content">
-      <div class="email-content-header pure-g">
-        <div class="pure-u-1">
-          <h1 class="email-content-title">{{ ticket.summary }}</h1>
-          <p class="email-content-subtitle">
-            Reported by <a>{{ ticket.reportedBy }}</a>
+    <GroomingSuccess v-if="groomingSuccessful" />
+
+    <div
+      v-if="ticket"
+      id="main"
+      class="p-5 bg-white rounded border-black-800 drop-shadow-2xl"
+    >
+      <div class="">
+        <div class="">
+          <h1 class="text-xl font-bold">{{ ticket.summary }}</h1>
+          <p class="font-semibold">
+            Reported by
+            <span class="text-indigo-500">{{ ticket.reportedBy }}</span>
           </p>
         </div>
-      </div>
 
-      <div class="email-content-body">
-        <p>
-          {{ ticket.description }}
-        </p>
-      </div>
+        <div class="pt-5">
+          <p>
+            {{ ticket.description }}
+          </p>
+        </div>
 
-      <div class="email-content-footer pure-g">
-        <div class="pure-u-1">
-          <div class="pure-g form">
-            <div class="pure-u-1">
-              <label class="points-label">Points</label>
-              <div v-for="option in pointOptions" :key="option" class="points">
-                <label :for="'points-' + option" class="pure-radio">
-                  <input
-                    type="radio"
-                    :id="'points-' + option"
-                    v-model="points"
-                    :value="option"
-                  />
-                  {{ option }}
-                </label>
-              </div>
-            </div>
+        <div class="flex flex-col pt-5">
+          <div class="">
+            <select
+              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              v-model="points"
+            >
+              <option v-for="point in pointOptions" :key="point">
+                {{ point }}
+              </option>
+            </select>
           </div>
-
-          <div class="pure-g">
-            <div class="pure-u-1">
-              <button @click="pointIt" class="button-success pure-button">
-                Point it!
-              </button>
-            </div>
+          <div class="pt-4">
+            <button
+              @click="pointIt"
+              class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50"
+            >
+              Point it!
+            </button>
           </div>
+        </div>
 
-          <div class="pure-g">
-            <div class="pure-u-1">
-              <ul>
-                <li v-for="user in session.users" :key="user.name">
-                  <b>{{ user.name }}</b>
-                  {{ user.points ? 'pointed 🤘' : 'not pointed 🤔' }}
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="flex flex-col pt-5">
+          <h1 class="text-xl font-bold text-gray-500">Not pointed</h1>
+          <ul>
+            <li
+              v-for="user in usersYetToPoint()"
+              :key="user.name"
+              class="font-semibold"
+            >
+              {{ user.name }}
+            </li>
+          </ul>
 
-          <div v-if="repointRequired" class="pure-g">
-            <div class="pure-u-lg-1 pure-u-xl-1-3 message">
-              <p>User pointing is not unanimous. Repoint!</p>
-            </div>
+          <h1 class="text-xl font-bold text-indigo-500 pt-3">Pointed</h1>
+          <ul>
+            <li
+              v-for="user in usersPointed()"
+              :key="user.name"
+              class="font-semibold"
+            >
+              {{ user.name }}
+            </li>
+          </ul>
+
+          <h2 v-if="!usersPointed().length">Patiently waiting for points</h2>
+        </div>
+
+        <div v-if="repointRequired" class="">
+          <div class="">
+            <p>User pointing is not unanimous. Repoint!</p>
           </div>
         </div>
       </div>
@@ -76,11 +92,22 @@
 </template>
 
 <script>
+import GroomingSuccess from '@/jira/grooming-tickets/components/GroomingSuccess'
+
 export default {
-  props: ['ticket', 'pointSubmitted', 'session', 'repointRequired'],
+  props: [
+    'ticket',
+    'pointSubmitted',
+    'session',
+    'repointRequired',
+    'groomingSuccessful'
+  ],
+  components: {
+    GroomingSuccess
+  },
   data() {
     return {
-      points: 0,
+      points: 1,
       pointOptions: [1, 2, 3, 5, 8, 13, 20, 40, 100]
     }
   },
@@ -89,6 +116,16 @@ export default {
       if (this.points) {
         this.pointSubmitted(this.points)
       }
+    },
+    usersPointed() {
+      return this.session.users.filter(user => {
+        return user.points
+      })
+    },
+    usersYetToPoint() {
+      return this.session.users.filter(user => {
+        return !user.points
+      })
     }
   }
 }

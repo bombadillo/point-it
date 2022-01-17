@@ -1,21 +1,28 @@
 <template>
-  <div id="list" class="pure-u-1">
-    <Skeleton v-if="loadingTickets" :totalToDisplay="4" />
+  <div class="p-5">
+    <SkeletonLoader v-if="loadingTickets" :totalToDisplay="4" />
     <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div
       v-for="ticket in tickets.issues"
       :key="ticket.id"
-      :class="`email-item email-item-selected pure-g ${
-        ticket.id === selectedTicket?.id ? 'selected' : ''
+      :class="`bg-white p-4 rounded-md mb-4 hover:scale-105 ease-out duration-100 cursor-pointer ${
+        ticket.id === selectedTicket?.id
+          ? ' border-black-800 drop-shadow-2xl scale-105'
+          : ''
       } `"
       @click="ticketSelected(ticket)"
     >
-      <div class="pure-u">{{ getTicketEmoji(ticket) }}</div>
+      <div class="flex flex-row">
+        <div class="">{{ getTicketEmoji(ticket) }}</div>
+        <div class="pl-2 font-bold">
+          <h4 class="">{{ ticket.name }}</h4>
+        </div>
+      </div>
 
-      <div class="pure-u-3-4">
-        <h5 class="email-name">{{ ticket.reportedBy }}</h5>
-        <h4 class="email-subject">{{ ticket.name }}</h4>
-        <p class="email-desc">
+      <div class="">
+        <h5 class="text-gray-400">{{ ticket.reportedBy }}</h5>
+
+        <p class="">
           {{ ticket.summary }}
         </p>
       </div>
@@ -24,11 +31,11 @@
 </template>
 
 <script>
-import Skeleton from '@/skeleton/components/Skeleton'
+import SkeletonLoader from '@/skeleton/components/SkeletonLoader'
 
 export default {
   props: ['onTicketSelected', 'loadingTickets', 'tickets', 'selectedTicket'],
-  components: { Skeleton },
+  components: { SkeletonLoader },
   methods: {
     ticketSelected(ticket) {
       this.onTicketSelected(ticket)
@@ -53,7 +60,7 @@ export default {
 </script>
 
 <style scoped>
-.email-item {
+/* .email-item {
   transition: background 0.5s ease;
   background: rgba(238, 238, 238, 0.1);
 }
@@ -74,5 +81,5 @@ h3 {
 
 .selected .email-name {
   color: rgba(250, 250, 250, 0.7);
-}
+} */
 </style>

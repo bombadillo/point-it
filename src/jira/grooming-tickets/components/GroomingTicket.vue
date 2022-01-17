@@ -15,7 +15,7 @@
     <GroomingSuccess v-if="groomingSuccessful" />
 
     <div
-      v-if="ticket"
+      v-if="ticket && !groomingSuccessful"
       id="main"
       class="p-5 bg-white rounded border-black-800 drop-shadow-2xl"
     >

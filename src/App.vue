@@ -1,7 +1,7 @@
 <template>
   <div v-if="!user"><UserLogin :userLoggedIn="userLoggedIn" /></div>
 
-  <div v-if="user" class="container">
+  <div v-if="user" class="container max-w-max">
     <div class="flex flex-col md:flex-row">
       <div class="basis-1/4">
         <NavSidebar
@@ -198,7 +198,7 @@ export default {
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        x => x.id === ticketId
+        (x) => x.id === ticketId
       )
     },
     async getGroomingTickets(showLoader = false) {

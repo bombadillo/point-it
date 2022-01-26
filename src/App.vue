@@ -2,7 +2,7 @@
   <div v-if="!user"><UserLogin :userLoggedIn="userLoggedIn" /></div>
 
   <div v-if="user" class="container max-w-max">
-    <div class="flex flex-col md:flex-row">
+    <div class="flex flex-col md:flex-row w-screen">
       <div class="basis-1/4">
         <NavSidebar
           :user="user"
@@ -141,8 +141,8 @@ export default {
     },
     clearSession() {
       this.session = undefined
-      clearInterval(this.triggerSessionRefreshInterval)
-      this.triggerSessionRefreshInterval = null
+      clearInterval(this.sessionRefreshInterval)
+      this.sessionRefreshInterval = null
       clearInterval(this.getGroomingTicketsInterval)
       this.getGroomingTicketsInterval = null
     },
@@ -152,8 +152,8 @@ export default {
     async triggerSessionRefreshInterval() {
       this.sessionRefreshInterval = setInterval(async () => {
         if (!this.session) {
-          clearInterval(this.triggerSessionRefreshInterval)
-          this.triggerSessionRefreshInterval = null
+          clearInterval(this.sessionRefreshInterval)
+          this.sessionRefreshInterval = null
           return
         }
 

@@ -3,7 +3,7 @@
 
   <div v-if="user" class="container max-w-max">
     <div class="flex flex-col md:flex-row w-screen">
-      <div class="basis-1/4">
+      <div class="basis-1/6">
         <NavSidebar
           :user="user"
           :session="session"

@@ -1,6 +1,6 @@
 <template>
   <div class="drop-shadow-lg bg-gray-300">
-    <div class="h-20 flex flex-row content-center">
+    <div class="h-20 flex flex-row justify-center">
       <div class="basis-1/4">
         <NavLogo />
       </div>

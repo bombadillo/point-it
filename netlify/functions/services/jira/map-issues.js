@@ -28,12 +28,12 @@ function buildDescription(descriptionFields) {
 function getContentFromDescriptionItem(content, contentStringPassedIn) {
   let contentString = contentStringPassedIn || ''
 
-  if (content.length === 0) {
+  if (content?.length === 0) {
     return contentString
   }
 
   content.forEach(contentItem => {
-    if (content.length === 0) {
+    if (content?.length === 0) {
       return ''
     }
 
@@ -47,15 +47,15 @@ function getContentFromDescriptionItem(content, contentStringPassedIn) {
 }
 
 function getNestedContentFromDescriptionItem(content, contentStringPassedIn) {
-  if (content.content) {
-    return getNestedContentFromDescriptionItem(content.content)
+  if (content?.content) {
+    return getNestedContentFromDescriptionItem(content?.content)
   }
 
-  if (content.text) {
+  if (content?.text) {
     return `${content.text} - `
   }
 
-  if (content.length > 0) {
+  if (content?.length > 0) {
     return getContentFromDescriptionItem(content, contentStringPassedIn)
   }
 

@@ -28,7 +28,7 @@ function buildDescription(descriptionFields) {
 function getContentFromDescriptionItem(content, contentStringPassedIn) {
   let contentString = contentStringPassedIn || ''
 
-  if (content?.length === 0) {
+  if (!content || content?.length === 0) {
     return contentString
   }
 

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "Point It: Overview",
+  "steps": [
+    {
+      "file": "src/App.vue",
+      "description": "`App.vue` is the root component for PointIt. This is where the main state is controlled and the main child components are referenced here.",
+      "line": 1
+    },
+    {
+      "file": "src/App.vue",
+      "description": "Here are the state properties that are updated by the functions under the `methods` section. These can only be mutated here in `App.vue`. Child components used within this component can be passed the value of these properties but they cannot mutate them.",
+      "line": 76
+    },
+    {
+      "file": "src/navigation/components/NavSidebar.vue",
+      "description": "This component handles the navigation for the app. It handles user ops such as creating or joining a session and logging out. It also shows other users in the current session.",
+      "line": 1
+    },
+    {
+      "file": "src/jira/grooming-tickets/components/GroomingTicketList.vue",
+      "description": "Here we have the component that handles the grooming ticket list. It propogates an event when a user selects a ticket by calling a function that is passed into it as a prop: `onTicketSelected`.",
+      "line": 1
+    },
+    {
+      "file": "src/jira/grooming-tickets/components/GroomingTicket.vue",
+      "description": "This is where the ticket is displayed. It handles user pointing. Users can select the points they want to give a ticket and if all points are unanimous the ticket will be successfully groomed.",
+      "line": 1
+    }
+  ],
+  "ref": "master"
+}

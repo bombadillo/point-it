@@ -1,11 +1,11 @@
 <template>
-  <div class="p-5">
+  <div class="p-10">
     <SkeletonLoader v-if="loadingTickets" :totalToDisplay="4" />
     <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div
       v-for="ticket in tickets.issues"
       :key="ticket.id"
-      :class="`bg-white p-4 rounded-md mb-4 hover:scale-105 ease-out duration-100 cursor-pointer ${
+      :class="`bg-white p-4 rounded-md mb-4 hover:drop-shadow-xl ease-out duration-100 cursor-pointer ${
         ticket.id === selectedTicket?.id
           ? ' border-black-800 drop-shadow-2xl scale-105'
           : ''

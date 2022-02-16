@@ -12,7 +12,7 @@
           :onJoinSessionClicked="onJoinSessionClicked"
         />
       </div>
-      <div class="basis-1/4 bg-gray-200" v-if="session">
+      <div class="basis-2/6 bg-gray-200" v-if="session">
         <GroomingTicketList
           :onTicketSelected="onTicketSelected"
           :tickets="groomingTickets"
@@ -20,7 +20,7 @@
           :selectedTicket="selectedTicket"
         />
       </div>
-      <div class="basis-1/2 bg-gray-100" v-if="session">
+      <div class="basis-3/6 bg-gray-100" v-if="session">
         <GroomingTicket
           :ticket="selectedTicket"
           :pointSubmitted="pointSubmitted"
@@ -29,7 +29,7 @@
           :groomingSuccessful="groomingSuccessful"
         />
       </div>
-      <div class="basis-3/4 bg-gray-100" v-if="!session">
+      <div class="basis-4/6 bg-gray-100" v-if="!session">
         <CreateSession
           v-if="showCreateSession"
           :onSessionCreated="onSessionCreated"
@@ -198,7 +198,7 @@ export default {
     },
     setActiveTicket(ticketId) {
       this.selectedTicket = this.groomingTickets.issues.find(
-        (x) => x.id === ticketId
+        x => x.id === ticketId
       )
     },
     async getGroomingTickets(showLoader = false) {

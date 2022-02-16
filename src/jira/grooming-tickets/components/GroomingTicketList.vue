@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10">
+  <div class="p-10 overflow-auto h-screen">
     <SkeletonLoader v-if="loadingTickets" :totalToDisplay="4" />
     <h3 v-if="showNoTicketsMessage()">No tickets to groom</h3>
     <div

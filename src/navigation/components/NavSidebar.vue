@@ -1,5 +1,5 @@
 <template>
-  <div class="drop-shadow-lg bg-gray-300">
+  <div class="drop-shadow-lg bg-gray-300 h-full">
     <div class="h-20 flex flex-row justify-center">
       <div class="basis-1/4">
         <NavLogo />
@@ -18,7 +18,7 @@
 
     <div
       v-if="open || !mobileView"
-      class="flex flex-row flex-col h-screen md:h-100 md:relative top-0 right-0 w-full bg-gray-300 z-10"
+      class="flex flex-row flex-col md:h-100 md:relative top-0 right-0 w-full z-10"
     >
       <div class="">
         <ul class="p-5">

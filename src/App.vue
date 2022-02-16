@@ -2,7 +2,7 @@
   <div v-if="!user"><UserLogin :userLoggedIn="userLoggedIn" /></div>
 
   <div v-if="user" class="container max-w-max">
-    <div class="flex flex-col md:flex-row w-screen">
+    <div class="flex flex-col md:flex-row w-screen h-screen">
       <div class="basis-1/6">
         <NavSidebar
           :user="user"
@@ -29,7 +29,7 @@
           :groomingSuccessful="groomingSuccessful"
         />
       </div>
-      <div class="basis-4/6 bg-gray-100" v-if="!session">
+      <div class="basis-5/6 bg-gray-100" v-if="!session">
         <CreateSession
           v-if="showCreateSession"
           :onSessionCreated="onSessionCreated"

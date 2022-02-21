@@ -1,5 +1,5 @@
 <template>
-  <div class="p-10">
+  <div class="p-10 overflow-auto h-screen">
     <div
       v-if="!ticket && !groomingSuccessful"
       class="flex flex-col items-center"

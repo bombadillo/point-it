@@ -34,24 +34,16 @@
           </p>
         </div>
 
-        <div class="flex flex-col pt-5">
-          <div class="">
-            <select
-              class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              v-model="points"
-            >
-              <option v-for="point in pointOptions" :key="point">
-                {{ point }}
-              </option>
-            </select>
-          </div>
-          <div class="pt-4">
-            <button
-              @click="pointIt"
-              class="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-50"
-            >
-              Point it!
-            </button>
+        <div class="pt-5">
+          <label class="font-bold">Choose your points</label>
+          <div class="flex flex-wrap">
+            <div
+              v-for="(point, index) in pointOptions"
+              :key="index"
+              :class="`point-card rounded point-card-${point}`"
+              :style="calculatePointCardPositioning(index)"
+              @click="pointIt(point)"
+            ></div>
           </div>
         </div>
 
@@ -68,15 +60,25 @@
           </ul>
 
           <h1 class="text-xl font-bold text-indigo-500 pt-3">Pointed</h1>
-          <ul>
-            <li
+          <div class="flex flex-wrap">
+            <div
               v-for="user in usersPointed()"
               :key="user.name"
               class="font-semibold"
             >
               {{ user.name }}
-            </li>
-          </ul>
+
+              <div
+                v-if="repointRequired"
+                :class="`point-card rounded point-card-${user.points}`"
+                :style="
+                  calculatePointCardPositioning(
+                    pointOptions.indexOf(user.points)
+                  )
+                "
+              ></div>
+            </div>
+          </div>
 
           <h2 v-if="!usersPointed().length">Patiently waiting for points</h2>
         </div>
@@ -108,14 +110,13 @@ export default {
   data() {
     return {
       points: 1,
-      pointOptions: [1, 2, 3, 5, 8, 13, 20, 40, 100]
+      pointOptions: [1, 2, 3, 5, 8, 13, 20, 40]
     }
   },
   methods: {
-    pointIt() {
-      if (this.points) {
-        this.pointSubmitted(this.points)
-      }
+    pointIt(points) {
+      this.points = points
+      this.pointSubmitted(this.points)
     },
     usersPointed() {
       return this.session.users.filter(user => {
@@ -126,6 +127,20 @@ export default {
       return this.session.users.filter(user => {
         return !user.points
       })
+    },
+    calculatePointCardPositioning(cardNumber) {
+      const isSecondRow = cardNumber < 5
+      const rightPositioningMultiplier = isSecondRow
+        ? cardNumber
+        : cardNumber - 5
+      const baseLine = isSecondRow ? 166 : 15
+      const increase = 76
+      const rightPositioning = rightPositioningMultiplier * increase + baseLine
+      const topPositioning = isSecondRow ? 164 : 278
+
+      return {
+        backgroundPosition: `-${rightPositioning}px -${topPositioning}px`
+      }
     }
   }
 }
@@ -152,5 +167,18 @@ export default {
   color: white;
   font-size: 1.125em;
   text-align: center;
+}
+
+.point-card {
+  width: 73px;
+  height: 111px;
+  background-image: url(~@/jira/grooming-tickets/images/points-cards.png);
+  background-size: 550px;
+  cursor: pointer;
+  transition: transform ease-in 0.1s;
+}
+
+.point-card:hover {
+  transform: scale(0.9);
 }
 </style>

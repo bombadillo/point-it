@@ -40,7 +40,7 @@
             <div
               v-for="(point, index) in pointOptions"
               :key="index"
-              :class="`point-card rounded point-card-${point}`"
+              :class="`point-card rounded point-card-${point} cursor-pointer point-card-animate`"
               :style="calculatePointCardPositioning(index)"
               @click="pointIt(point)"
             ></div>
@@ -48,7 +48,9 @@
         </div>
 
         <div class="flex flex-col pt-5">
-          <h1 class="text-xl font-bold text-gray-500">Not pointed</h1>
+          <h1 v-if="!repointRequired" class="text-xl font-bold text-gray-500">
+            Not pointed
+          </h1>
           <ul>
             <li
               v-for="user in usersYetToPoint()"
@@ -60,6 +62,7 @@
           </ul>
 
           <h1 class="text-xl font-bold text-indigo-500 pt-3">Pointed</h1>
+
           <div class="flex flex-wrap">
             <div
               v-for="user in usersPointed()"
@@ -83,11 +86,12 @@
           <h2 v-if="!usersPointed().length">Patiently waiting for points</h2>
         </div>
 
-        <div v-if="repointRequired" class="">
-          <div class="">
-            <p>User pointing is not unanimous. Repoint!</p>
-          </div>
-        </div>
+        <h2
+          v-if="repointRequired"
+          class="text-xl font-normal text-red-700 pt-3"
+        >
+          User pointing is not unanimous. Repoint!
+        </h2>
       </div>
     </div>
   </div>
@@ -134,7 +138,7 @@ export default {
         ? cardNumber
         : cardNumber - 5
       const baseLine = isSecondRow ? 166 : 15
-      const increase = 76
+      const increase = 75
       const rightPositioning = rightPositioningMultiplier * increase + baseLine
       const topPositioning = isSecondRow ? 164 : 278
 
@@ -174,11 +178,13 @@ export default {
   height: 111px;
   background-image: url(~@/jira/grooming-tickets/images/points-cards.png);
   background-size: 550px;
-  cursor: pointer;
+}
+
+.point-card-animate {
   transition: transform ease-in 0.1s;
 }
 
-.point-card:hover {
+.point-card-animate:hover {
   transform: scale(0.9);
 }
 </style>

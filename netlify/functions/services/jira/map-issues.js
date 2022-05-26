@@ -18,45 +18,46 @@ function buildDescription(descriptionFields) {
     return ''
   }
 
-  const str = descriptionFields.content.reduce((acc, curr) => {
-    return `${acc} ${getContentFromDescriptionItem(curr.content)}`
-  }, '')
+  const descriptions = descriptionFields.content.map(descriptionField => {
+    return getContentFromDescriptionItem(descriptionField.content)
+  })
 
-  return str
+  return descriptions.flat(1)
 }
 
-function getContentFromDescriptionItem(content, contentStringPassedIn) {
-  let contentString = contentStringPassedIn || ''
-
+function getContentFromDescriptionItem(content) {
   if (!content || content?.length === 0) {
-    return contentString
+    return null
   }
+
+  const descriptions = []
 
   content.forEach(contentItem => {
     if (content?.length === 0) {
-      return ''
+      return null
     }
 
-    contentString += getNestedContentFromDescriptionItem(
-      contentItem,
-      contentString
-    )
+    descriptions.push(getNestedContentFromDescriptionItem(contentItem))
   })
 
-  return contentString
+  return descriptions
 }
 
-function getNestedContentFromDescriptionItem(content, contentStringPassedIn) {
+function getNestedContentFromDescriptionItem(content) {
   if (content?.content) {
     return getNestedContentFromDescriptionItem(content?.content)
   }
 
   if (content?.text) {
-    return `${content.text} - `
+    return content.text
+  }
+
+  if (content?.attrs) {
+    return content.attrs.url
   }
 
   if (content?.length > 0) {
-    return getContentFromDescriptionItem(content, contentStringPassedIn)
+    return getContentFromDescriptionItem(content)
   }
 
   return ''

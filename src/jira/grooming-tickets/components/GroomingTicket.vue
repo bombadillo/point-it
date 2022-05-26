@@ -21,17 +21,30 @@
     >
       <div class="">
         <div class="">
-          <h1 class="text-xl font-bold">{{ ticket.summary }}</h1>
+          <h1 class="text-xl font-bold text-indigo-600 hover:text-indigo-500">
+            <a
+              :href="`https://arnoldclark.atlassian.net/browse/${ticket.name}`"
+              target="_blank"
+              >{{ ticket.name }}</a
+            >
+          </h1>
+          <h2 class="text-xl font-bold">{{ ticket.summary }}</h2>
           <p class="font-semibold">
             Reported by
-            <span class="text-indigo-500">{{ ticket.reportedBy }}</span>
+            <span class="text-gray-500">{{ ticket.reportedBy }}</span>
           </p>
         </div>
 
         <div class="pt-5">
-          <p>
-            {{ ticket.description }}
-          </p>
+          <div
+            v-for="descriptionItem of ticket.description"
+            :key="descriptionItem"
+            class="mb-4"
+          >
+            <p>
+              {{ descriptionItem }}
+            </p>
+          </div>
         </div>
 
         <div class="pt-5">

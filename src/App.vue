@@ -12,6 +12,7 @@
           :onJoinSessionClicked="onJoinSessionClicked"
         />
       </div>
+<!-- IF JIRA/DEVOPS enabled
       <div class="basis-2/6 bg-gray-200" v-if="session">
         <GroomingTicketList
           :onTicketSelected="onTicketSelected"
@@ -20,13 +21,11 @@
           :selectedTicket="selectedTicket"
         />
       </div>
-      <div class="basis-3/6 bg-gray-100" v-if="session">
+       -->
+      <div class="basis-5/6 bg-gray-100" v-if="session">
         <GroomingTicket
-          :ticket="selectedTicket"
-          :pointSubmitted="pointSubmitted"
           :session="session"
-          :repointRequired="repointRequired"
-          :groomingSuccessful="groomingSuccessful"
+          :user="user"
         />
       </div>
       <div class="basis-5/6 bg-gray-100" v-if="!session">
@@ -47,25 +46,20 @@
 <script>
 import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-loader/loader'
 
-import getGroomingTickets from '@/jira/grooming-tickets/services/getGroomingTickets'
 import NavSidebar from '@/navigation/components/NavSidebar'
-import GroomingTicketList from '@/jira/grooming-tickets/components/GroomingTicketList'
-import GroomingTicket from '@/jira/grooming-tickets/components/GroomingTicket'
+import GroomingTicket from '@/default-grooming-tickets-provider/components/GroomingTicket'
 import UserLogin from '@/user/login/components/UserLogin'
-import getLoggedInUser from '@/user/services/get-logged-in-user'
+import userService from '@/user/services/userService'
 import logUserOut from '@/user/services/log-user-out'
 import NoSession from '@/session/components/NoSession'
 import CreateSession from '@/session/components/CreateSession'
 import JoinSession from '@/session/components/JoinSession'
 import getLocalSession from '@/session/services/get-local-session'
 import getSession from '@/session/services/get-session'
-import setActiveTicketForSession from '@/session/services/set-active-ticket-for-session'
-import addPointsToActiveTicket from '@/session/services/add-points-to-active-ticket'
 
 export default {
   name: 'App',
   components: {
-    GroomingTicketList,
     GroomingTicket,
     UserLogin,
     NoSession,
@@ -84,31 +78,12 @@ export default {
       repointRequired: false,
       loadingGroomingTickets: true,
       sessionRefreshInterval: undefined,
-      getGroomingTicketsInterval: undefined,
       groomingTickets: []
     }
   },
   methods: {
-    onTicketsLoaded() {
-      if (this.session?.activeTicketId && !this.selectedTicket) {
-        this.setActiveTicket(this.session.activeTicketId)
-      }
-    },
-    onTicketSelected(ticket) {
-      this.selectedTicket = ticket
-      this.groomingSuccessful = false
-      setActiveTicketForSession(this.session.name, ticket)
-    },
-    pointSubmitted(points) {
-      addPointsToActiveTicket(
-        this.session.name,
-        this.user,
-        points,
-        this.session.activeTicketId
-      )
-    },
     tryGetLoggedInUser() {
-      this.user = getLoggedInUser()
+      this.user = userService.getLoggedInUser()
     },
     userLoggedIn(user) {
       this.user = user
@@ -143,8 +118,6 @@ export default {
       this.session = undefined
       clearInterval(this.sessionRefreshInterval)
       this.sessionRefreshInterval = null
-      clearInterval(this.getGroomingTicketsInterval)
-      this.getGroomingTicketsInterval = null
     },
     onSessionJoined(session) {
       this.session = session
@@ -160,31 +133,18 @@ export default {
         this.getLatestSession()
       }, 3000)
     },
-    async tiggerGetGroomingTicketsInterval() {
-      this.getGroomingTicketsInterval = setInterval(async () => {
-        if (!this.session) {
-          clearInterval(this.getGroomingTicketsInterval)
-          this.getGroomingTicketsInterval = null
-          return
-        }
-
-        this.getGroomingTickets()
-      }, 10000)
-    },
     async getLatestSession() {
       const latestSession = await getSession(this.session.name)
-
-      if (
-        latestSession.activeTicketId &&
-        (latestSession.activeTicketId !== this.session.activeTicketId ||
-          !this.selectedTicket)
-      ) {
-        this.groomingSuccessful = false
-        this.setActiveTicket(latestSession.activeTicketId)
-      }
+  console.log(latestSession)
+      // if (
+      //   latestSession.activeTicketId &&
+      //   (latestSession.activeTicketId !== this.session.activeTicketId ||
+      //     !this.selectedTicket)
+      // ) {
+      //   this.groomingSuccessful = false
+      // }
 
       if (!this.groomingSuccessful && latestSession.groomingSuccessful) {
-        this.getGroomingTickets()
         this.groomingSuccessful = true
         this.repointRequired = false
       } else if (
@@ -196,26 +156,16 @@ export default {
 
       this.session = latestSession
     },
-    setActiveTicket(ticketId) {
-      this.selectedTicket = this.groomingTickets.issues.find(
-        x => x.id === ticketId
-      )
-    },
-    async getGroomingTickets(showLoader = false) {
-      this.loadingGroomingTickets = showLoader
-      const groomingTickets = await getGroomingTickets()
-      this.groomingTickets = groomingTickets || []
-      this.onTicketsLoaded(groomingTickets)
-      this.loadingGroomingTickets = false
-    }
+
   },
   setup() {
     initSkeleton()
   },
   mounted() {
-    this.getGroomingTickets(true)
+    // this.getGroomingTickets(true)
     this.tryGetLoggedInUser()
     this.tryGetLocalSession()
+    console.log(this.user)
   },
   updated() {
     if (
@@ -226,9 +176,9 @@ export default {
       if (this.triggerSessionRefreshInterval) {
         this.triggerSessionRefreshInterval()
       }
-      if (this.tiggerGetGroomingTicketsInterval) {
-        this.tiggerGetGroomingTicketsInterval()
-      }
+      // if (this.tiggerGetGroomingTicketsInterval) {
+      //   this.tiggerGetGroomingTicketsInterval()
+      // }
     }
   }
 }

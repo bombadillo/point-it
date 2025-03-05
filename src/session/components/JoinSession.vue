@@ -30,7 +30,7 @@
 
 <script>
 import joinSession from '@/session/services/join-session'
-import getLocalUser from '@/user/services/get-logged-in-user'
+import userService from '@/user/services/userService'
 
 export default {
   props: ['onSessionJoined'],
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const session = await joinSession(this.sessionName, getLocalUser())
+      const session = await joinSession(this.sessionName, userService.getLocalUser())
       this.onSessionJoined(session)
     }
   }

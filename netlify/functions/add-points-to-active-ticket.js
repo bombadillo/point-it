@@ -1,8 +1,8 @@
 const faunadb = require('faunadb'),
   q = faunadb.query
 
-const completeJiraTicket = require('./services/jira/complete-jira-ticket')
-const markActiveTicketForSessionAsGroomed = require('./services/jira/mark-active-ticket-for-session-as-groomed')
+// const completeJiraTicket = require('./services/jira/complete-jira-ticket')
+// const markActiveTicketForSessionAsGroomed = require('./services/jira/mark-active-ticket-for-session-as-groomed')
 
 let client
 
@@ -19,8 +19,8 @@ exports.handler = async function (event) {
     if (
       !eventBody.name ||
       !eventBody.user ||
-      !eventBody.points ||
-      !eventBody.activeTicketId
+      !eventBody.points 
+      // || !eventBody.activeTicketId
     ) {
       return {
         statusCode: 400
@@ -31,7 +31,7 @@ exports.handler = async function (event) {
       eventBody.name,
       eventBody.user,
       eventBody.points,
-      eventBody.activeTicketId
+      // eventBody.activeTicketId
     )
 
     if (session) {
@@ -54,7 +54,9 @@ exports.handler = async function (event) {
   }
 }
 
-async function addPointsToActiveTicket(name, user, points, activeTicketId) {
+async function addPointsToActiveTicket(name, user, points,
+  //  activeTicketId
+  ) {
   const sessionResults = await client.query(
     q.Map(
       q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
@@ -66,23 +68,24 @@ async function addPointsToActiveTicket(name, user, points, activeTicketId) {
     return
   }
 
-  const sessionRecord = sessionResults.data[0]
+  let sessionRecord = sessionResults.data[0]
 
   const users = sessionRecord.data.users
 
   const userExists = users.filter((x) => x.name === user.name).length > 0
 
   if (!userExists) {
+    console.log('user does not exist')
     null
   }
 
   let usersPointed = 0
-  users.forEach((item) => {
-    if (item.name === user.name) {
-      item.points = points
+  users.forEach((currentUserInArray) => {
+    if (currentUserInArray.name === user.name) {
+      currentUserInArray.points = points
     }
 
-    if (item.points) {
+    if (currentUserInArray.points) {
       usersPointed++
     }
   })
@@ -91,15 +94,16 @@ async function addPointsToActiveTicket(name, user, points, activeTicketId) {
 
   if (pointsAreUnanimous(users)) {
     sessionRecord.data.pointsAreUnanimous = true
-    await completeJiraTicket(activeTicketId, points)
-    await markActiveTicketForSessionAsGroomed(name)
-
-    return sessionRecord
+    sessionRecord.data.groomingSuccessful = true
+    sessionRecord.data.agreedPoints = points
+    console.log('success!!!')
   } else {
     sessionRecord.data.pointsAreUnanimous = false
+    sessionRecord.data.groomingSuccessful = false
   }
 
   sessionRecord.data.users = users
+  
 
   return await client.query(
     q.Update(q.Ref(q.Collection('session'), sessionRecord.ref.id), {

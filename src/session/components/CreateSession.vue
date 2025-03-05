@@ -30,7 +30,7 @@
 
 <script>
 import createSession from '@/session/services/create-session'
-import getLocalUser from '@/user/services/get-logged-in-user'
+import userService from '@/user/services/userService'
 
 export default {
   props: ['onSessionCreated'],
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const session = await createSession(this.sessionName, getLocalUser())
+      const session = await createSession(this.sessionName, userService.getLoggedInUser())
       this.onSessionCreated(session)
     }
   }

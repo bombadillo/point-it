@@ -13,13 +13,14 @@ exports.handler = async function (event) {
 
     const eventBody = JSON.parse(event.body)
 
-    if (!eventBody.name || !eventBody.user) {
+    if (!eventBody.user) {
       return {
         statusCode: 400
       }
     }
 
-    const session = await addSession(eventBody.name, eventBody.user)
+    const newSessionName = await generateSessionName();
+    const session = await addSession(newSessionName, eventBody.user)
 
     if (session) {
       return {
@@ -63,3 +64,33 @@ async function sessionExists(sessionName) {
 
   return sessionResults.data.length > 0
 }
+
+async function generateSessionName() {
+    var adjs = ["autumn", "hidden", "bitter", "misty", "silent", "empty", "dry",
+    "dark", "summer", "icy", "delicate", "quiet", "white", "cool", "spring",
+    "winter", "patient", "twilight", "dawn", "crimson", "wispy", "weathered",
+    "blue", "billowing", "broken", "cold", "damp", "falling", "frosty", "green",
+    "long", "late", "lingering", "bold", "little", "morning", "muddy", "old",
+    "red", "rough", "still", "small", "sparkling", "throbbing", "shy",
+    "wandering", "withered", "wild", "black", "young", "holy", "solitary",
+    "fragrant", "aged", "snowy", "proud", "floral", "restless", "divine",
+    "polished", "ancient", "purple", "lively", "nameless"]
+  
+    , nouns = ["waterfall", "river", "breeze", "moon", "rain", "wind", "sea",
+    "morning", "snow", "lake", "sunset", "pine", "shadow", "leaf", "dawn",
+    "glitter", "forest", "hill", "cloud", "meadow", "sun", "glade", "bird",
+    "brook", "butterfly", "bush", "dew", "dust", "field", "fire", "flower",
+    "firefly", "feather", "grass", "haze", "mountain", "night", "pond",
+    "darkness", "snowflake", "silence", "sound", "sky", "shape", "surf",
+    "thunder", "violet", "water", "wildflower", "wave", "water", "resonance",
+    "sun", "wood", "dream", "cherry", "tree", "fog", "frost", "voice", "paper",
+    "frog", "smoke", "star"];
+  
+    const newSessionName = adjs[Math.floor(Math.random()*(adjs.length-1))]+"-"+nouns[Math.floor(Math.random()*(nouns.length-1))]+"-"+nouns[Math.floor(Math.random()*(nouns.length-1))];
+
+    if (await sessionExists(newSessionName))
+      return await generateSessionName();
+
+    return newSessionName;
+
+  }

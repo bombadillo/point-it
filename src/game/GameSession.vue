@@ -70,7 +70,8 @@
                             <!-- maybe move this into the grooming card -->
                             <div
                                 v-if="
-                                    !gameStore.game.revealPoints || !getLocalUserPoints(user)
+                                    !gameStore.game.revealPoints ||
+                                    !getLocalUserPoints(user)
                                 "
                                 :class="generateUserCardClass(user)"
                             >
@@ -79,9 +80,14 @@
 
                             <grooming-card
                                 v-if="
-                                    gameStore.game.revealPoints && getLocalUserPoints(user)
+                                    gameStore.game.revealPoints &&
+                                    getLocalUserPoints(user)
                                 "
-                                :cardKey="pointOptions.indexOf(getLocalUserPoints(user))"
+                                :cardKey="
+                                    pointOptions.indexOf(
+                                        getLocalUserPoints(user)
+                                    )
+                                "
                             />
                         </div>
                     </div>
@@ -174,7 +180,7 @@ export default {
 
             this.gameStore.setGame(updatedGame)
 
-            const user = {...userStore.user, localPoints: points};
+            const user = { ...userStore.user, localPoints: points }
             userStore.setUser(user)
 
             addPointsToActiveTicket(
@@ -185,7 +191,8 @@ export default {
             )
         },
         getLocalUserPoints(user) {
-            return userStore.user.localPoints ?? user.points;
+            if (user.name !== userStore.user.name) return user.points
+            return userStore.user.localPoints ?? user.points
         },
         revealPoints() {
             revealPointsService(gameStore.game?.name)
@@ -208,6 +215,12 @@ export default {
 
             if (!gameName) this.$router.push('/game/not-found')
 
+            if (game.users.find((x) => x.name === userStore.name)) {
+                this.username = userStore.username;
+                this.onNewUserSubmit();
+                return;
+            }
+
             const latestGame = await getSession(gameName)
             gameStore.setGame(latestGame)
 
@@ -227,9 +240,9 @@ export default {
             await joinSession(gameStore.game.name, userStore.user)
         },
         async onGameRestart() {
-            this.selectedPoint = null;
-            this.startingNewGame = true;
-            await groomNextTicket(this.gameStore.game.name);
+            this.selectedPoint = null
+            this.startingNewGame = true
+            await groomNextTicket(this.gameStore.game.name)
         }
     },
     mounted() {

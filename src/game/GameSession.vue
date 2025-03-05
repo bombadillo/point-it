@@ -175,7 +175,6 @@ export default {
             this.gameStore.setGame(updatedGame)
 
             const user = {...userStore.user, localPoints: points};
-            localStorage.setItem('user', JSON.stringify(user))
             userStore.setUser(user)
 
             addPointsToActiveTicket(
@@ -224,7 +223,6 @@ export default {
         },
         async onNewUserSubmit() {
             const user = { name: this.username }
-            localStorage.setItem('user', JSON.stringify(user))
             userStore.setUser(user)
             await joinSession(gameStore.game.name, userStore.user)
         },

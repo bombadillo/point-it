@@ -55,7 +55,6 @@ export default {
 
         createUser() {
             const user = { name: this.username }
-            localStorage.setItem('user', JSON.stringify(user))
             userStore.setUser(user);
         }
     }

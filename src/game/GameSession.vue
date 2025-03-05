@@ -130,7 +130,6 @@ import GameResult from '@/game/result/GameResult'
 import addPointsToActiveTicket from '@/session/services/add-points-to-active-ticket'
 import revealPointsService from '@/session/services/reveal-points'
 import getSession from '@/session/services/get-session'
-// import getLocalSession from '@/session/services/get-local-session'
 
 import stylingConstants from '@/constants/styling'
 

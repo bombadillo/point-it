@@ -45,7 +45,6 @@ import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-load
 import userService from '@/user/services/user-service'
 // import logUserOut from '@/user/services/log-user-out'
 
-// import getLocalSession from '@/session/services/get-local-session'
 // import getSession from '@/session/services/get-session'
 
 import NavSidebarNew from '@/navigation/components/NavSidebarNew.vue'

@@ -1,19 +1,20 @@
 <template>
-  <div v-for="i in totalToDisplay" :key="i" class="container">
-    <nb-skeleton variant="circle"></nb-skeleton>
-    <nb-skeleton variant="rect"></nb-skeleton>
-    <nb-skeleton count="2"></nb-skeleton>
-  </div>
+    <div role="status" class="max-w-sm animate-pulse">
+        <div
+            class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"
+        ></div>
+        <div
+            class="w-3/4 h-2 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-4"
+        ></div>
+        <div
+            class="w-3/4 h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-4"
+        ></div>
+        <span class="sr-only">Loading...</span>
+    </div>
 </template>
 
 <script>
-export default {
-  props: { totalToDisplay: Number }
-}
+export default {}
 </script>
 
-<style scoped>
-.container {
-  padding: 10px;
-}
-</style>
+<style scoped></style>

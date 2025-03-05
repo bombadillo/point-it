@@ -25,7 +25,7 @@ module.exports = async (name) => {
   const sessionRecord = sessionResults.data[0]
   console.log(sessionRecord)
 
-  sessionRecord.data.users = sessionRecord.data.users.map(x => x.points === undefined)
+  sessionRecord.data.users.forEach(user => user.points = undefined);
 
   const updatedSession = {
     ...sessionRecord.data,

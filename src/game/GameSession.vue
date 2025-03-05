@@ -20,7 +20,7 @@
                     <div class="rounded-md shadow-sm mb-4">
                         <div>
                             <label for="username" class="sr-only"
-                                >Email address</label
+                                >User name</label
                             >
                             <input
                                 v-model="username"
@@ -70,7 +70,7 @@
                             <!-- maybe move this into the grooming card -->
                             <div
                                 v-if="
-                                    !gameStore.game.revealPoints || !user.points
+                                    !gameStore.game.revealPoints || !getLocalUserPoints(user)
                                 "
                                 :class="generateUserCardClass(user)"
                             >
@@ -79,9 +79,9 @@
 
                             <grooming-card
                                 v-if="
-                                    gameStore.game.revealPoints && user.points
+                                    gameStore.game.revealPoints && getLocalUserPoints(user)
                                 "
-                                :cardKey="pointOptions.indexOf(user.points)"
+                                :cardKey="pointOptions.indexOf(getLocalUserPoints(user))"
                             />
                         </div>
                     </div>
@@ -174,6 +174,10 @@ export default {
 
             this.gameStore.setGame(updatedGame)
 
+            const user = {...userStore.user, localPoints: points};
+            localStorage.setItem('user', JSON.stringify(user))
+            userStore.setUser(user)
+
             addPointsToActiveTicket(
                 gameStore.game.name,
                 this.userStore.user,
@@ -181,7 +185,9 @@ export default {
                 gameStore.game.activeTicketId
             )
         },
-
+        getLocalUserPoints(user) {
+            return userStore.user.localPoints ?? user.points;
+        },
         revealPoints() {
             revealPointsService(gameStore.game?.name)
         },

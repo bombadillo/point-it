@@ -192,7 +192,7 @@ export default {
         },
         getLocalUserPoints(user) {
             if (user.name !== userStore.user.name) return user.points
-            return userStore.user.localPoints ?? user.points
+            return userStore.user.localPoints
         },
         revealPoints() {
             revealPointsService(gameStore.game?.name)

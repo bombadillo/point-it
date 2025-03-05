@@ -1,9 +1,8 @@
 <template>
-<nav-sidebar-new />
-<router-view />
+    <nav-sidebar-new />
+    <router-view />
 
-     
-<!--
+    <!--
     <div v-if="showCreateGame()"><CreateGame :userLoggedIn="userLoggedIn" :onSessionCreated="onSessionCreated" /></div>
 
     <initiate-game-create v-if="showInitiateGameCreate()" :onStartGameClick="onStartGameClick" />
@@ -46,9 +45,8 @@ import { defineCustomElements as initSkeleton } from 'skeleton-webcomponent-load
 import userService from '@/user/services/user-service'
 // import logUserOut from '@/user/services/log-user-out'
 
-import getLocalSession from '@/session/services/get-local-session'
+// import getLocalSession from '@/session/services/get-local-session'
 // import getSession from '@/session/services/get-session'
-
 
 import NavSidebarNew from '@/navigation/components/NavSidebarNew.vue'
 // import CreateGame from '@/game/create/CreateGame'
@@ -56,12 +54,12 @@ import NavSidebarNew from '@/navigation/components/NavSidebarNew.vue'
 // import GameSession from '@/game/GameSession.vue'
 // import InitiateGameCreate from './game/create/initiate/InitiateGameCreate.vue'
 
-import { userStore } from '@/store/user-store';
+import { userStore } from '@/store/user-store'
 
 export default {
     name: 'App',
     components: {
-        NavSidebarNew,
+        NavSidebarNew
         //         CreateGame,
         // GameSession,
         // InitiateGameCreate,
@@ -71,7 +69,6 @@ export default {
         // CreateSession,
         // JoinSession,
         // NavSidebar
-        
     },
     data() {
         return {
@@ -82,21 +79,15 @@ export default {
             repointRequired: false,
             loadingGroomingTickets: true,
             sessionRefreshInterval: undefined,
-            groomingTickets: [],
-            
+            groomingTickets: []
         }
     },
     setup() {
         initSkeleton()
     },
     mounted() {
-        const game = getLocalSession();
-        const user = userService.getLoggedInUser();
-        userStore.setUser(user);
-        console.log(game)
-
-        if (game)
-            this.$router.push({ path: `/game/${game.name}` });        
+        const user = userService.getLoggedInUser()
+        userStore.setUser(user)
     }
 }
 </script>

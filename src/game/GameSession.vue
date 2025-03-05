@@ -130,7 +130,7 @@ import GameResult from '@/game/result/GameResult'
 import addPointsToActiveTicket from '@/session/services/add-points-to-active-ticket'
 import revealPointsService from '@/session/services/reveal-points'
 import getSession from '@/session/services/get-session'
-import getLocalSession from '@/session/services/get-local-session'
+// import getLocalSession from '@/session/services/get-local-session'
 
 import stylingConstants from '@/constants/styling'
 
@@ -210,24 +210,23 @@ export default {
             }, 3000)
         },
         async getLatestSession() {
-            const game = getLocalSession()
-            const gameName = game ? game.name : this.$route.params.name
+            const gameName = this.$route.params.name
 
             if (!gameName) this.$router.push('/game/not-found')
-
-            if (game.users.find((x) => x.name === userStore.name)) {
-                this.username = userStore.username;
-                this.onNewUserSubmit();
-                return;
-            }
 
             const latestGame = await getSession(gameName)
             gameStore.setGame(latestGame)
 
+            if (!gameStore.game) this.$router.push('/game/not-found')
+
             this.disableGameResult = false
             this.startingNewGame = false
 
-            if (!gameStore.game) this.$router.push('/game/not-found')
+            if (gameStore.game.users.find((x) => x.name === userStore.name)) {
+                this.username = userStore.username
+                this.onNewUserSubmit()
+                return
+            }
         },
         noUsersPointed() {
             const usersPointed = gameStore.game.users.filter((x) => x.points)

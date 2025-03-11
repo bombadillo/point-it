@@ -30,13 +30,15 @@ export default {
 
             className += this.point ? ' cursor-pointer' : ''
 
-            if (this.animate)
-                className +=
-                    this.selectedPoint === this.point
-                        ? ' point-card-selected'
-                        : ' point-card-animate'
-
+            if (this.animate && this.selectedPoint)
+                className += this.calculateClassWhenSelectedPointPopulated()
+            else className += ' point-card-active'
             return className
+        },
+        calculateClassWhenSelectedPointPopulated() {
+            return this.selectedPoint === this.point
+                ? ' point-card-active'
+                : ' point-card'
         },
         onClick() {
             if (this.point) {
@@ -57,11 +59,11 @@ export default {
     transition: opacity 0.2s ease-in-out;
 }
 
-.point-card-animate:hover {
+.point-card:hover {
     opacity: 1;
 }
 
-.point-card-selected {
+.point-card-active {
     opacity: 1;
 }
 </style>

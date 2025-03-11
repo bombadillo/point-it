@@ -26,18 +26,20 @@ export default {
             }
         },
         calculateClass() {
-            let className = `point-card rounded point-card-${this.point}`;
+            let className = `point-card rounded point-card-${this.point}`
 
-            className += this.point ? ' cursor-pointer' : '';
+            className += this.point ? ' cursor-pointer' : ''
 
             if (this.animate)
-                className += this.selectedPoint === this.point ? ' point-card-selected' : ' point-card-animate';
+                className +=
+                    this.selectedPoint === this.point
+                        ? ' point-card-selected'
+                        : ' point-card-animate'
 
-            return className;
+            return className
         },
         onClick() {
-            if(this.point)
-            {
+            if (this.point) {
                 this.pointIt(this.point)
             }
         }
@@ -51,19 +53,15 @@ export default {
     height: 111px;
     background-image: url(~@/jira/grooming-tickets/images/points-cards.png);
     background-size: 550px;
-    transform: scale(1);
-}
-
-.point-card-animate {
-    transition: transform ease-in 0.15s;
-    transform: margin-top 0.6s ease-in-out, transform 0.6s ease-in-out;
+    opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .point-card-animate:hover {
-    transform: translateY(-16px);
+    opacity: 1;
 }
 
 .point-card-selected {
-    margin-top: -16px;
+    opacity: 1;
 }
 </style>

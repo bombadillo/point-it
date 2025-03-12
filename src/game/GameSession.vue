@@ -267,9 +267,10 @@ export default {
             console.log(this.lastRestartTime)
             console.log(latestGame.lastRestartTime)
             if (
-                this.lastRestartTime &&
-                latestGame.lastRestartTime &&
-                this.lastRestartTime !== latestGame.lastRestartTime
+                (this.lastRestartTime &&
+                    latestGame.lastRestartTime &&
+                    this.lastRestartTime !== latestGame.lastRestartTime) ||
+                (!this.lastRestartTime && latestGame.lastRestartTime)
             ) {
                 this.reset()
                 this.lastRestartTime = latestGame.lastRestartTime

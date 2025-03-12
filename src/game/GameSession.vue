@@ -178,7 +178,8 @@ export default {
             userStore,
             gameStore,
             stylingConstants,
-            showRevealPointsLoading: false
+            showRevealPointsLoading: false,
+            lastRestartTime: undefined
         }
     },
     methods: {
@@ -215,12 +216,21 @@ export default {
             )
         },
         getLocalUserPoints(user) {
-            console.log(user.name)
-            console.log(userStore.user.name)
-            console.log(user.points)
-            console.log(this.selectedPoint)
+            // console.log(user.name)
+            // console.log(userStore.user.name)
+            // console.log(user.points)
+            // console.log(this.selectedPoint)
             if (user.name !== userStore.user.name) return user.points
-            return this.selectedPoint ?? userStore.user.localPoints
+
+            if (this.selectedPoint) return this.selectedPoint
+
+            const gameUser = gameStore.game.users.find(
+                (x) => x.name === userStore.user.name
+            )
+
+            if (gameUser) return gameUser.points
+
+            return null
         },
         async revealPoints() {
             this.showRevealPointsLoading = true
@@ -254,15 +264,36 @@ export default {
 
             if (!gameStore.game) this.$router.push('/game/not-found')
 
+            console.log(this.lastRestartTime)
+            console.log(latestGame.lastRestartTime)
+            if (
+                this.lastRestartTime &&
+                latestGame.lastRestartTime &&
+                this.lastRestartTime !== latestGame.lastRestartTime
+            ) {
+                this.reset()
+                this.lastRestartTime = latestGame.lastRestartTime
+                return
+            }
+
+            this.lastRestartTime = latestGame.lastRestartTime
             this.disableGameResult = false
             this.startingNewGame = false
 
-            if (gameStore.game.users.find((x) => x.name === userStore.name)) {
-                this.username = userStore.username
+            if (
+                !gameStore.game.users.find(
+                    (x) => x.name === userStore.user.name
+                )
+            ) {
+                console.log('user not found')
+                this.username = userStore.user.name
                 this.onNewUserSubmit()
+            } else {
+                console.log('user found')
             }
 
-            this.showRevealPointsLoading = false
+            if (this.showRevealPointsLoading && latestGame.revealPoints)
+                this.showRevealPointsLoading = false
         },
         noUsersPointed() {
             const usersPointed = gameStore.game.users.filter((x) => x.points)
@@ -270,14 +301,24 @@ export default {
             return usersPointed.length === 0
         },
         async onNewUserSubmit() {
+            if (!this.username) return
+            this.startingNewGame = true
+
             const user = { name: this.username }
             userStore.setUser(user)
             await joinSession(gameStore.game.name, userStore.user)
         },
         async onGameRestart() {
-            this.selectedPoint = null
-            this.startingNewGame = true
+            console.log('restarting game')
+            this.reset()
             await groomNextTicket(this.gameStore.game.name)
+        },
+        reset() {
+            console.log('reset!')
+            userStore.setUser({ name: userStore.user.name })
+            this.selectedPoint = null
+            this.points = null
+            this.startingNewGame = true
         }
     },
     mounted() {

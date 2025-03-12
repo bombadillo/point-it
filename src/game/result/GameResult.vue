@@ -5,7 +5,7 @@
     <div v-else class="flex flex-wrap justify-center py-2 justify-center">
         <div class="w-full text-center">
             <h2>
-                Estimation was
+                Estimation is
                 <span :class="`text-${getFontColour()}-500 font-bold`">{{
                     getGameResultText()
                 }}</span>
@@ -19,20 +19,21 @@
                 >
             </div>
             <div class="w-full text-center">Points</div>
-            <div class="w-full text-center mt-4">
-                <button
-                    @click="onGameRestart()"
-                    :class="stylingConstants.button"
-                >
-                    Restart
-                </button>
-            </div>
         </div>
         <div v-else>
             <div class="w-full text-center pt-4">
                 <span class="text-3xl"> 🗣️ </span>
                 Discuss and repoint
             </div>
+            <div class="pt-4 text-center">
+                <hr class="border-slate-900" />
+                <p class="pt-2">Or</p>
+            </div>
+        </div>
+        <div class="w-full text-center mt-4">
+            <button @click="onGameRestart()" :class="stylingConstants.button">
+                Restart
+            </button>
         </div>
     </div>
 </template>
@@ -54,8 +55,8 @@ export default {
     methods: {
         getGameResultText() {
             return this.gameStore.game.groomingSuccessful
-                ? 'successful'
-                : 'unsuccessful'
+                ? 'unanimous'
+                : 'varied'
         },
         getFontColour() {
             return this.gameStore.game.groomingSuccessful ? 'green' : 'red'

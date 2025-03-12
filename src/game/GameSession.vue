@@ -184,7 +184,9 @@ export default {
     },
     methods: {
         pointIt(points) {
+            // Is this.points needed?
             this.points = points
+            this.selectedPoint = points
             this.pointSubmitted(this.points)
         },
         pointSubmitted(points) {

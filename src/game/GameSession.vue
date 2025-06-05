@@ -170,7 +170,7 @@ export default {
     },
     data() {
         return {
-            pointOptions: [1, 2, 3, 5, 8, 13, 20, 40],
+            pointOptions: [1, 2, 3, 5, 8, 13, 20, 40, 100, 'coffee'],
             selectedPoint: null,
             disableGameResult: false,
             gameRefreshInterval: undefined,

@@ -190,7 +190,6 @@ export default {
             this.pointSubmitted(this.points)
         },
         pointSubmitted(points) {
-            console.log(this.userStore.user)
             this.selectedPoint = points
 
             // move to service
@@ -201,7 +200,6 @@ export default {
 
             const updatedGame = this.gameStore.game
             updatedGame.users = newUsers
-            console.log(JSON.stringify(updatedGame))
 
             this.disableGameResult = true
 
@@ -218,10 +216,6 @@ export default {
             )
         },
         getLocalUserPoints(user) {
-            // console.log(user.name)
-            // console.log(userStore.user.name)
-            // console.log(user.points)
-            // console.log(this.selectedPoint)
             if (user.name !== userStore.user.name) return user.points
 
             if (this.selectedPoint) return this.selectedPoint
@@ -236,12 +230,7 @@ export default {
         },
         async revealPoints() {
             this.showRevealPointsLoading = true
-            console.log(this.showRevealPointsLoading)
-            console.log(
-                !gameStore.game ||
-                    this.startingNewGame ||
-                    this.showRevealPointsLoading
-            )
+
             await revealPointsService(gameStore.game?.name)
         },
         generateUserCardClass(user) {
@@ -266,8 +255,6 @@ export default {
 
             if (!gameStore.game) this.$router.push('/game/not-found')
 
-            console.log(this.lastRestartTime)
-            console.log(latestGame.lastRestartTime)
             if (
                 (this.lastRestartTime &&
                     latestGame.lastRestartTime &&
@@ -291,8 +278,6 @@ export default {
                 console.log('user not found')
                 this.username = userStore.user.name
                 this.onNewUserSubmit()
-            } else {
-                console.log('user found')
             }
 
             if (this.showRevealPointsLoading && latestGame.revealPoints)

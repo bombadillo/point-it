@@ -1,125 +1,108 @@
-const faunadb = require('faunadb'),
-  q = faunadb.query
+const { createClient } = require('@supabase/supabase-js')
 
-// const completeJiraTicket = require('./services/jira/complete-jira-ticket')
-// const markActiveTicketForSessionAsGroomed = require('./services/jira/mark-active-ticket-for-session-as-groomed')
-
-let client
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+)
 
 exports.handler = async function (event) {
-  try {
-    client = new faunadb.Client({
-      secret: process.env.FAUNADB_SECRET,
-      domain: 'db.eu.fauna.com',
-      keepAlive: false
-    })
+    try {
+        const eventBody = JSON.parse(event.body)
 
-    const eventBody = JSON.parse(event.body)
+        if (!eventBody.name || !eventBody.user || !eventBody.points) {
+            return {
+                statusCode: 400
+            }
+        }
 
-    if (
-      !eventBody.name ||
-      !eventBody.user ||
-      !eventBody.points 
-      // || !eventBody.activeTicketId
-    ) {
-      return {
-        statusCode: 400
-      }
+        const session = await addPointsToActiveTicket(
+            eventBody.name,
+            eventBody.user,
+            eventBody.points
+        )
+
+        if (session) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify(session)
+            }
+        }
+
+        return {
+            statusCode: 404
+        }
+    } catch (e) {
+        console.log(e)
+        return {
+            statusCode: 500,
+            body: JSON.stringify(e)
+        }
     }
-
-    const session = await addPointsToActiveTicket(
-      eventBody.name,
-      eventBody.user,
-      eventBody.points,
-      // eventBody.activeTicketId
-    )
-
-    if (session) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(session.data)
-      }
-    }
-
-    return {
-      statusCode: 404
-    }
-  } catch (e) {
-    console.log(e)
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify(e)
-    }
-  }
 }
 
-async function addPointsToActiveTicket(name, user, points,
-  //  activeTicketId
-  ) {
-  const sessionResults = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda((x) => q.Get(x))
-    )
-  )
+async function addPointsToActiveTicket(name, user, points) {
+    const { data: sessionRecord, error } = await supabase
+        .from('session')
+        .select()
+        .eq('name', name)
+        .limit(1)
+        .single()
 
-  if (sessionResults.data.length === 0) {
-    return
-  }
-
-  let sessionRecord = sessionResults.data[0]
-
-  const users = sessionRecord.data.users
-
-  const userExists = users.filter((x) => x.name === user.name).length > 0
-
-  if (!userExists) {
-    console.log('user does not exist')
-    null
-  }
-
-  let usersPointed = 0
-  users.forEach((currentUserInArray) => {
-    if (currentUserInArray.name === user.name) {
-      currentUserInArray.points = points
+    if (error || !sessionRecord) {
+        return null
     }
 
-    if (currentUserInArray.points) {
-      usersPointed++
+    const users = sessionRecord.users
+    const userExists = users.some((x) => x.name === user.name)
+
+    if (!userExists) {
+        console.log('user does not exist')
+        return null
     }
-  })
 
-  sessionRecord.data.allUsersPointed = usersPointed === users.length
+    let usersPointed = 0
+    users.forEach((currentUserInArray) => {
+        if (currentUserInArray.name === user.name) {
+            currentUserInArray.points = points
+        }
 
-  if (pointsAreUnanimous(users)) {
-    sessionRecord.data.pointsAreUnanimous = true
-    sessionRecord.data.groomingSuccessful = true
-    sessionRecord.data.agreedPoints = points
-    console.log('success!!!')
-  } else {
-    sessionRecord.data.pointsAreUnanimous = false
-    sessionRecord.data.groomingSuccessful = false
-  }
-
-  sessionRecord.data.users = users
-  
-
-  return await client.query(
-    q.Update(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
-      data: { ...sessionRecord.data }
+        if (currentUserInArray.points) {
+            usersPointed++
+        }
     })
-  )
+
+    const updatedSession = {
+        ...sessionRecord,
+        users,
+        all_users_pointed: usersPointed === users.length,
+        points_are_unanimous: pointsAreUnanimous(users),
+        grooming_successful: pointsAreUnanimous(users),
+        agreed_points: pointsAreUnanimous(users) ? points : undefined
+    }
+
+    const { data, error: updateError } = await supabase
+        .from('session')
+        .update(updatedSession)
+        .eq('name', name)
+        .select()
+        .single()
+
+    if (updateError) {
+        console.error('Error updating session:', updateError)
+        return null
+    }
+
+    return data
 }
 
 function pointsAreUnanimous(users) {
-  const userPoints = []
-  users.forEach((user) => {
-    if (!userPoints.includes(user.points)) {
-      console.log('adding point')
-      userPoints.push(user.points)
-    }
-  })
+    const userPoints = []
+    users.forEach((user) => {
+        if (!userPoints.includes(user.points)) {
+            console.log('adding point')
+            userPoints.push(user.points)
+        }
+    })
 
-  return userPoints.length === 1
+    return userPoints.length === 1
 }

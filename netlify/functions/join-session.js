@@ -1,74 +1,74 @@
-const faunadb = require('faunadb'),
-  q = faunadb.query
+const { createClient } = require('@supabase/supabase-js')
+const mapSessionToResponse = require('./services/session/map-session-to-response')
 
-let client
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+)
 
 exports.handler = async function (event) {
-  try {
-    client = new faunadb.Client({
-      secret: process.env.FAUNADB_SECRET,
-      domain: 'db.eu.fauna.com',
-      keepAlive: false
-    })
+    try {
+        const eventBody = JSON.parse(event.body)
 
-    const eventBody = JSON.parse(event.body)
+        if (!eventBody.name || !eventBody.user) {
+            return {
+                statusCode: 400
+            }
+        }
 
-    if (!eventBody.name || !eventBody.user) {
-      return {
-        statusCode: 400
-      }
+        const session = await joinSession(eventBody.name, eventBody.user)
+
+        if (session) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify(mapSessionToResponse(session))
+            }
+        }
+
+        return {
+            statusCode: 404
+        }
+    } catch (e) {
+        console.log(e)
+        return {
+            statusCode: 500,
+            body: JSON.stringify(e)
+        }
     }
-
-    const session = await joinSession(eventBody.name, eventBody.user)
-
-    if (session) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(session.data)
-      }
-    }
-
-    return {
-      statusCode: 404
-    }
-  } catch (e) {
-    console.log(e)
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify(e)
-    }
-  }
 }
 
 async function joinSession(name, user) {
-  const sessionResults = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda(x => q.Get(x))
-    )
-  )
+    const { data: sessionRecord, error } = await supabase
+        .from('session')
+        .select()
+        .eq('name', name)
+        .limit(1)
+        .single()
 
-  if (sessionResults.data.length === 0) {
-    return
-  }
+    if (error || !sessionRecord) {
+        return null
+    }
 
-  const sessionRecord = sessionResults.data[0]
+    const users = sessionRecord.users
+    const userExists = users.some((x) => x.name === user.name)
 
-  const users = sessionRecord.data.users
+    if (userExists) {
+        return sessionRecord
+    }
 
-  const userExists = users.filter(x => x.name === user.name).length > 0
+    users.push(user)
 
-  if (userExists) {
-    return sessionRecord
-  }
+    const { data, error: updateError } = await supabase
+        .from('session')
+        .update({ users })
+        .eq('name', name)
+        .select()
+        .single()
 
-  users.push(user)
-  sessionRecord.data.users = users
+    if (updateError) {
+        console.error('Error updating session:', updateError)
+        return null
+    }
 
-  return await client.query(
-    q.Update(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
-      data: { ...sessionRecord.data }
-    })
-  )
+    return data
 }

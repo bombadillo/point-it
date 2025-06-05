@@ -36,7 +36,7 @@
 <script>
 import createSession from '@/session/services/create-session'
 import stylingConstants from '@/constants/styling'
-import { userStore } from '@/store/user-store';
+import { userStore } from '@/store/user-store'
 
 export default {
     props: ['onGameCreated'],
@@ -50,12 +50,13 @@ export default {
         async onSubmit() {
             this.createUser()
             const game = await createSession(this.sessionName, userStore.user)
+            console.log('game created', game)
             this.onGameCreated(game)
         },
 
         createUser() {
             const user = { name: this.username }
-            userStore.setUser(user);
+            userStore.setUser(user)
         }
     }
 }

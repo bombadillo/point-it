@@ -1,37 +1,38 @@
-const faunadb = require('faunadb'),
-  q = faunadb.query
+const { createClient } = require('@supabase/supabase-js')
 
-let client
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+)
 
 module.exports = async (name) => {
-  client = new faunadb.Client({
-    secret: process.env.FAUNADB_SECRET,
-    domain: 'db.eu.fauna.com',
-    keepAlive: false
-  })
+    const { data: sessionRecord, error } = await supabase
+        .from('session')
+        .select()
+        .eq('name', name)
+        .limit(1)
+        .single()
 
-  const sessionResults = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda((x) => q.Get(x))
-    )
-  )
+    if (error || !sessionRecord) {
+        console.log('no session found to mark as groomed')
+        return
+    }
 
-  if (sessionResults.data.length === 0) {
-    console.log('no session found to mark as groomed')
-    return
-  }
+    const updatedSession = {
+        ...sessionRecord,
+        reveal_points: true
+    }
 
-  const sessionRecord = sessionResults.data[0]
+    const { data, updateError } = await supabase
+        .from('session')
+        .update(updatedSession)
+        .eq('name', name)
+        .select()
+        .single()
 
-  const updatedSession = {
-    ...sessionRecord.data,
-    revealPoints: true
-  }
-
-  return await client.query(
-    q.Replace(q.Ref(q.Collection('session'), sessionRecord.ref.id), {
-      data: updatedSession
-    })
-  )
+    if (updateError) {
+        console.error('Error updating session:')
+        return null
+    }
+    return data
 }

@@ -1,57 +1,51 @@
-const faunadb = require('faunadb'),
-  q = faunadb.query
+const { createClient } = require('@supabase/supabase-js')
+const mapSessionToResponse = require('./services/session/map-session-to-response')
 
-let client
+const supabase = createClient(
+    process.env.SUPABASE_URL,
+    process.env.SUPABASE_ANON_KEY
+)
 
 exports.handler = async function (event) {
-  try {
-    client = new faunadb.Client({
-      secret: process.env.FAUNADB_SECRET,
-      domain: 'db.eu.fauna.com',
-      keepAlive: false
-    })
+    try {
+        const sessionName = event.queryStringParameters.name
 
-    const sessionName = event.queryStringParameters.name
+        if (!sessionName || !sessionName === '') {
+            return {
+                statusCode: 400
+            }
+        }
 
-    if (!sessionName || !sessionName === '') {
-      return {
-        statusCode: 400
-      }
+        const session = await getSession(sessionName)
+
+        if (session) {
+            const mappedSession = mapSessionToResponse(session)
+            return {
+                statusCode: 200,
+                body: JSON.stringify(mappedSession)
+            }
+        }
+
+        return {
+            statusCode: 404
+        }
+    } catch (e) {
+        console.log(e)
+        return {
+            statusCode: 500,
+            body: JSON.stringify(e)
+        }
     }
-
-    const session = await getSession(sessionName)
-
-    if (session) {
-      return {
-        statusCode: 200,
-        body: JSON.stringify(session.data)
-      }
-    }
-
-    return {
-      statusCode: 404
-    }
-  } catch (e) {
-    console.log(e)
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify(e)
-    }
-  }
 }
 
 async function getSession(name) {
-  const sessionResults = await client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Index('session_name'), name), { size: 1 }),
-      q.Lambda(x => q.Get(x))
-    )
-  )
+    const { data, error } = await supabase
+        .from('session')
+        .select()
+        .eq('name', name)
+        .limit(1)
+        .single()
 
-  if (sessionResults.data.length === 0) {
-    return
-  }
-
-  return sessionResults.data[0]
+    if (error) return null
+    return data
 }

@@ -216,17 +216,27 @@ export default {
             )
         },
         getLocalUserPoints(user) {
-            if (user.name !== userStore.user.name) return user.points
+            // If not the current user, use server state
+            if (user.name !== userStore.user.name) {
+                return user.points
+            }
 
-            if (this.selectedPoint) return this.selectedPoint
+            // For current user, prioritize local state
+            if (this.selectedPoint !== null) {
+                return this.selectedPoint
+            }
 
+            // If no local state, use server state for current user
+            if (userStore.user.localPoints) {
+                return userStore.user.localPoints
+            }
+
+            // Fallback to server state
             const gameUser = gameStore.game.users.find(
                 (x) => x.name === userStore.user.name
             )
 
-            if (gameUser) return gameUser.points
-
-            return null
+            return gameUser ? gameUser.points : null
         },
         async revealPoints() {
             this.showRevealPointsLoading = true
@@ -234,7 +244,7 @@ export default {
             await revealPointsService(gameStore.game?.name)
         },
         generateUserCardClass(user) {
-            const cardColour = user.points ? 'cyan' : 'slate'
+            const cardColour = this.getLocalUserPoints(user) ? 'cyan' : 'slate'
             let classString = `hidden-points-card max-w-sm rounded overflow-hidden shadow-lg p-7 text-4xl border-4 bg-${cardColour}-700 border-${cardColour}-500`
 
             return classString
@@ -315,6 +325,17 @@ export default {
 
     unmounted() {
         clearInterval(this.gameRefreshInterval)
+    },
+    watch: {
+        'gameStore.game': {
+            handler(newValue) {
+                console.log('Game store updated:', newValue)
+            },
+            deep: true
+        },
+        selectedPoint(newValue) {
+            console.log('Selected point changed:', newValue)
+        }
     }
 }
 </script>

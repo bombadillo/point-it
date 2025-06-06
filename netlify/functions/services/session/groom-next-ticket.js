@@ -28,7 +28,7 @@ module.exports = async (name) => {
         points_are_unanimous: false,
         reveal_points: false,
         agreed_points: undefined,
-        last_restart_time: Math.floor(Date.now() / 1000)
+        last_restart_time: Date().toISOString();
     }
 
     const { data, error: updateError } = await supabase
